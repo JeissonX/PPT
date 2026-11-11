@@ -1,1024 +1,1958 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Proyecto Liz · Regional 5 — Presentación Ejecutiva</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { inter: ['Inter', 'sans-serif'] },
-          colors: {
-            brand: {
-              red: '#DA291C',
-              redAA: '#B91C1C',
-              dark: '#0F172A',
-              light: '#F8FAFC',
-              border: '#E2E8F0',
-            }
-          }
-        }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Proyecto Liz · Regional 5 — Propuesta Comercial</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: { inter: ["Inter", "sans-serif"] },
+            colors: {
+              brand: {
+                red: "#DA291C",
+                redAA: "#B91C1C",
+                dark: "#0F172A",
+                light: "#F8FAFC",
+                border: "#E2E8F0",
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
       }
-    }
-  </script>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body {
-      font-family: 'Inter', sans-serif;
-      background: #0F172A;
-      color: #0F172A;
-      height: 100vh;
-      width: 100vw;
-      overflow: hidden;
-    }
-
-    /* ─── Topbar ────────────────────────────────────────────── */
-    #topbar {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      height: 52px;
-      z-index: 50;
-      background: rgba(255, 255, 255, 0.98);
-      backdrop-filter: blur(8px);
-      border-bottom: 1.5px solid #E2E8F0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 24px;
-      box-shadow: 0 2px 10px rgba(15, 23, 42, 0.05);
-    }
-
-    /* ─── Slide System ──────────────────────────────────────── */
-    #slides-wrapper {
-      position: fixed;
-      inset: 0;
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
-    }
-
-    .slide {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.28s ease-in-out;
-      z-index: 1;
-    }
-
-    .slide.active {
-      opacity: 1;
-      pointer-events: auto;
-      z-index: 10;
-    }
-
-    /* ─── Floating Navigation Buttons ───────────────────────── */
-    .nav-arrow-btn {
-      position: fixed;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 45;
-      width: 44px;
-      height: 44px;
-      border-radius: 9999px;
-      background: rgba(255, 255, 255, 0.92);
-      border: 1.5px solid #E2E8F0;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #0F172A;
-      cursor: pointer;
-      transition: all 0.15s ease;
-    }
-    .nav-arrow-btn:hover:not(:disabled) {
-      background: #FFFFFF;
-      transform: translateY(-50%) scale(1.08);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
-    }
-    .nav-arrow-btn:disabled {
-      opacity: 0.25;
-      cursor: not-allowed;
-    }
-
-    /* ─── Bottom Dots & Counter ─────────────────────────────── */
-    #dots-container {
-      position: fixed;
-      bottom: 16px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 45;
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      background: rgba(15, 23, 42, 0.7);
-      backdrop-filter: blur(6px);
-      padding: 6px 14px;
-      border-radius: 9999px;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-    }
-    .dot-btn {
-      width: 8px;
-      height: 8px;
-      border-radius: 9999px;
-      background: rgba(255, 255, 255, 0.45);
-      border: none;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-    .dot-btn.active {
-      background: #DA291C;
-      width: 22px;
-    }
-
-    #slide-counter-badge {
-      position: fixed;
-      bottom: 16px;
-      right: 24px;
-      z-index: 45;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      color: #94A3B8;
-      background: rgba(15, 23, 42, 0.75);
-      backdrop-filter: blur(6px);
-      padding: 6px 14px;
-      border-radius: 9999px;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-    }
-
-    #progress-line {
-      position: fixed;
-      top: 52px;
-      left: 0;
-      height: 3px;
-      background: #DA291C;
-      z-index: 51;
-      transition: width 0.3s ease;
-    }
-
-    /* ─── Video Fallback in Print ────────────────────────────── */
-    .video-print-fallback {
-      display: none;
-    }
-
-    /* ─── PRINT RULES (@media print) ────────────────────────── */
-    @page {
-      size: 1920px 1080px;
-      margin: 0;
-    }
-
-    @media print {
-      html, body {
-        background: #FFFFFF !important;
-        height: auto !important;
-        width: 100% !important;
-        overflow: visible !important;
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
+      html,
+      body {
+        font-family: "Inter", sans-serif;
+        background: #0f172a;
+        color: #0f172a;
+        height: 100vh;
+        width: 100vw;
+        overflow: hidden;
       }
 
-      .no-print {
-        display: none !important;
+      /* ─── Topbar ────────────────────────────────────────────── */
+      #topbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 52px;
+        z-index: 50;
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(8px);
+        border-bottom: 1.5px solid #e2e8f0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 24px;
+        box-shadow: 0 2px 10px rgba(15, 23, 42, 0.05);
       }
 
-      #topbar, #progress-line, .nav-arrow-btn, #dots-container, #slide-counter-badge, #modal {
-        display: none !important;
-      }
-
+      /* ─── Slide System ──────────────────────────────────────── */
       #slides-wrapper {
-        position: static !important;
-        height: auto !important;
-        width: 100% !important;
-        overflow: visible !important;
+        position: fixed;
+        inset: 0;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
       }
 
       .slide {
-        position: relative !important;
-        display: flex !important;
-        opacity: 1 !important;
-        pointer-events: auto !important;
-        page-break-after: always !important;
-        break-after: page !important;
-        height: 100vh !important;
-        width: 100vw !important;
-        max-height: 1080px !important;
-        max-width: 1920px !important;
-        overflow: hidden !important;
-        padding-top: 1.5rem !important;
-        box-sizing: border-box !important;
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.28s ease-in-out;
+        z-index: 1;
       }
 
-      video {
-        display: none !important;
+      .slide.active {
+        opacity: 1;
+        pointer-events: auto;
+        z-index: 10;
       }
 
+      /* ─── Floating Navigation Buttons ───────────────────────── */
+      .nav-arrow-btn {
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 45;
+        width: 44px;
+        height: 44px;
+        border-radius: 9999px;
+        background: rgba(255, 255, 255, 0.92);
+        border: 1.5px solid #e2e8f0;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #0f172a;
+        cursor: pointer;
+        transition: all 0.15s ease;
+      }
+      .nav-arrow-btn:hover:not(:disabled) {
+        background: #ffffff;
+        transform: translateY(-50%) scale(1.08);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+      }
+      .nav-arrow-btn:disabled {
+        opacity: 0.25;
+        cursor: not-allowed;
+      }
+
+      /* ─── Bottom Dots & Counter ─────────────────────────────── */
+      #dots-container {
+        position: fixed;
+        bottom: 16px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 45;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        background: rgba(15, 23, 42, 0.7);
+        backdrop-filter: blur(6px);
+        padding: 6px 14px;
+        border-radius: 9999px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+      }
+      .dot-btn {
+        width: 8px;
+        height: 8px;
+        border-radius: 9999px;
+        background: rgba(255, 255, 255, 0.45);
+        border: none;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+      .dot-btn.active {
+        background: #da291c;
+        width: 22px;
+      }
+
+      #slide-counter-badge {
+        position: fixed;
+        bottom: 16px;
+        right: 24px;
+        z-index: 45;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        color: #94a3b8;
+        background: rgba(15, 23, 42, 0.75);
+        backdrop-filter: blur(6px);
+        padding: 6px 14px;
+        border-radius: 9999px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+      }
+
+      #progress-line {
+        position: fixed;
+        top: 52px;
+        left: 0;
+        height: 3px;
+        background: #da291c;
+        z-index: 51;
+        transition: width 0.3s ease;
+      }
+
+      /* ─── Video Fallback in Print ────────────────────────────── */
       .video-print-fallback {
-        display: flex !important;
+        display: none;
       }
-    }
-  </style>
-</head>
-<body class="bg-slate-900 select-none">
 
-  <!-- ══════════════════════════════════════════════════════════
+      /* ─── PRINT RULES (@media print) ────────────────────────── */
+      @page {
+        size: 1920px 1080px;
+        margin: 0;
+      }
+
+      @media print {
+        html,
+        body {
+          background: #ffffff !important;
+          height: auto !important;
+          width: 100% !important;
+          overflow: visible !important;
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+        }
+
+        .no-print {
+          display: none !important;
+        }
+
+        #topbar,
+        #progress-line,
+        .nav-arrow-btn,
+        #dots-container,
+        #slide-counter-badge,
+        #modal {
+          display: none !important;
+        }
+
+        #slides-wrapper {
+          position: static !important;
+          height: auto !important;
+          width: 100% !important;
+          overflow: visible !important;
+        }
+
+        .slide {
+          position: relative !important;
+          display: flex !important;
+          opacity: 1 !important;
+          pointer-events: auto !important;
+          page-break-after: always !important;
+          break-after: page !important;
+          height: 100vh !important;
+          width: 100vw !important;
+          max-height: 1080px !important;
+          max-width: 1920px !important;
+          overflow: hidden !important;
+          padding-top: 1.5rem !important;
+          box-sizing: border-box !important;
+        }
+
+        video {
+          display: none !important;
+        }
+
+        .video-print-fallback {
+          display: flex !important;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-slate-900 select-none">
+    <!-- ══════════════════════════════════════════════════════════
        FRANJA INSTITUCIONAL SUPERIOR FIJA (EN PANTALLA)
   ══════════════════════════════════════════════════════════ -->
-  <header id="topbar" class="no-print">
-    <div class="flex items-center gap-3">
-      <img src="./LOGO-LIZ.png" alt="Logo Liz" class="h-8 w-auto object-contain" onerror="this.style.display='none'" />
-      <div class="h-5 w-[1.5px] bg-slate-300"></div>
-      <div class="text-xs font-black tracking-wider text-slate-800 uppercase">
-        PROYECTO LIZ <span class="text-[#DA291C] mx-1">•</span> REGIONAL 5
+    <header id="topbar" class="no-print">
+      <div class="flex items-center gap-3">
+        <img
+          src="./LOGO-LIZ.png"
+          alt="Logo Liz"
+          class="h-8 w-auto object-contain"
+          onerror="this.style.display = 'none'"
+        />
+        <div class="h-5 w-[1.5px] bg-slate-300"></div>
+        <div class="text-xs font-black tracking-wider text-slate-800 uppercase">
+          PROYECTO LIZ <span class="text-[#DA291C] mx-1">•</span> REGIONAL 5
+        </div>
       </div>
-    </div>
 
-    <div class="flex items-center gap-2.5">
-      <button onclick="window.print()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 transition shadow-sm" title="Exportar presentación a PDF">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-slate-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-        <span>Imprimir / Guardar PDF</span>
-      </button>
+      <div class="flex items-center gap-2.5">
+        <button
+          onclick="window.print()"
+          class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 transition shadow-sm"
+          title="Exportar presentación a PDF"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-3.5 h-3.5 text-slate-600"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <polyline points="6 9 6 2 18 2 18 9" />
+            <path
+              d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"
+            />
+            <rect x="6" y="14" width="12" height="8" />
+          </svg>
+          <span>Imprimir / Guardar PDF</span>
+        </button>
 
-      <button id="fs-btn" onclick="toggleFullscreen()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-[#DA291C] text-white hover:bg-[#B91C1C] transition shadow-sm" title="Modo presentación (Tecla F)">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
-        <span>Pantalla Completa</span>
-      </button>
-    </div>
-  </header>
+        <button
+          id="fs-btn"
+          onclick="toggleFullscreen()"
+          class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-[#DA291C] text-white hover:bg-[#B91C1C] transition shadow-sm"
+          title="Modo presentación (Tecla F)"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-3.5 h-3.5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+          >
+            <path
+              d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"
+            />
+          </svg>
+          <span>Pantalla Completa</span>
+        </button>
+      </div>
+    </header>
 
-  <!-- Barra de progreso superior -->
-  <div id="progress-line" class="no-print" style="width: 16.66%;"></div>
+    <!-- Barra de progreso superior -->
+    <div id="progress-line" class="no-print" style="width: 16.66%"></div>
 
-  <!-- ══════════════════════════════════════════════════════════
+    <!-- ══════════════════════════════════════════════════════════
        CONTENEDOR GLOBAL DE DIAPOSITIVAS
   ══════════════════════════════════════════════════════════ -->
-  <main id="slides-wrapper">
-
-    <!-- ──────────────────────────────────────────────────────────
+    <main id="slides-wrapper">
+      <!-- ──────────────────────────────────────────────────────────
          SLIDE 1: PORTADA EJECUTIVA (Fondo oscuro #0F172A)
     ────────────────────────────────────────────────────────── -->
-    <section class="slide active h-screen w-screen overflow-hidden flex flex-col p-6 pt-16 bg-[#0F172A] text-white justify-between" id="slide-1">
-      <!-- Encabezado / Logo -->
-      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-        <div class="flex items-center gap-3">
-          <img src="./LOGO-LIZ.png" alt="Logo Liz" class="h-9 w-auto brightness-0 invert object-contain" onerror="this.style.display='none'" />
-          <span class="text-xs font-bold tracking-widest text-[#DA291C] uppercase bg-red-950/60 border border-red-800/40 px-2.5 py-1 rounded">CANAL PH</span>
-        </div>
-        <span class="text-xs font-semibold text-slate-400 tracking-wider">REGIONAL 5 • ENTREGABLE EJECUTIVO</span>
-      </div>
-
-      <!-- Área de Contenido Principal -->
-      <div class="flex-1 min-h-0 overflow-hidden flex flex-col justify-center gap-6 my-auto">
-        <!-- Título y Subtítulo -->
-        <div class="text-center max-w-4xl mx-auto space-y-2">
-          <h1 class="text-3xl md:text-5xl font-black tracking-tight text-white uppercase">
-            PROYECTO <span class="text-[#DA291C]">LIZ</span> — CANAL PH
-          </h1>
-          <p class="text-sm md:text-lg text-slate-300 font-medium max-w-3xl mx-auto leading-relaxed">
-            Nuevo frente comercial automático en propiedad horizontal mediante QR inteligentes • Regional 5
-          </p>
-        </div>
-
-        <!-- 3 Tarjetas KPI -->
-        <div class="grid grid-cols-3 gap-4 max-w-5xl w-full mx-auto">
-          <!-- KPI 1 -->
-          <div class="bg-slate-800/80 border border-slate-700/80 rounded-xl p-4 shadow-lg backdrop-blur-sm flex flex-col justify-between">
-            <span class="text-[11px] font-bold tracking-wider text-[#DA291C] uppercase">COPROPIEDADES / COBERTURA</span>
-            <div class="my-2">
-              <span class="text-2xl md:text-3xl font-black text-white">8 Distritos</span>
-            </div>
-            <p class="text-xs text-slate-300 font-medium">Activos en Piloto Regional con despliegue de habladores</p>
+      <section
+        class="slide active h-screen w-screen overflow-hidden flex flex-col p-6 pt-16 bg-[#0F172A] text-white justify-between"
+        id="slide-1"
+      >
+        <!-- Encabezado / Logo -->
+        <div
+          class="flex items-center justify-between border-b border-slate-800 pb-3"
+        >
+          <div class="flex items-center gap-3">
+            <img
+              src="./LOGO-LIZ.png"
+              alt="Logo Liz"
+              class="h-9 w-auto brightness-0 invert object-contain"
+              onerror="this.style.display = 'none'"
+            />
+            <span
+              class="text-xs font-bold tracking-widest text-[#DA291C] uppercase bg-gray-950/60 border border-gray-800/40 px-2.5 py-1 rounded"
+            >
+              INICIATIVA Y DESARROLLO PROPIO • REGIONAL 5
+            </span>
           </div>
-
-          <!-- KPI 2 -->
-          <div class="bg-slate-800/80 border border-slate-700/80 rounded-xl p-4 shadow-lg backdrop-blur-sm flex flex-col justify-between">
-            <span class="text-[11px] font-bold tracking-wider text-[#DA291C] uppercase">TIEMPOS DE ATENCIÓN / DISPONIBILIDAD</span>
-            <div class="my-2">
-              <span class="text-2xl md:text-3xl font-black text-white">24/7</span>
-            </div>
-            <p class="text-xs text-slate-300 font-medium">Atención 24/7 — respuesta automática en 2 a 3.5 s</p>
-          </div>
-
-          <!-- KPI 3 -->
-          <div class="bg-slate-800/80 border border-slate-700/80 rounded-xl p-4 shadow-lg backdrop-blur-sm flex flex-col justify-between">
-            <span class="text-[11px] font-bold tracking-wider text-[#DA291C] uppercase">COSTO DE ADQUISICIÓN / INTERMEDIACIÓN</span>
-            <div class="my-2">
-              <span class="text-2xl md:text-3xl font-black text-white">$483 a $1.008</span>
-              <span class="text-xs font-bold text-slate-400 ml-1">COP</span>
-            </div>
-            <p class="text-xs text-slate-300 font-medium">CPA en consumo Meta/VPS • Cero licencias externas</p>
-          </div>
+          <span class="text-xs font-semibold text-slate-400 tracking-wider"
+            >PROPUESTA COMERCIAL • CLARO REGIONAL 5</span
+          >
         </div>
 
-        <!-- 3 Pilares del modelo en la parte inferior con viñetas rojas (#DA291C) -->
-        <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-3.5 max-w-5xl w-full mx-auto shadow-md">
-          <div class="text-[11px] font-bold text-slate-400 tracking-wider uppercase mb-2 text-center">PILARES ESTRATÉGICOS DEL MODELO</div>
-          <div class="grid grid-cols-3 gap-3">
-            <div class="flex items-start gap-2.5">
-              <span class="w-2.5 h-2.5 rounded-full bg-[#DA291C] mt-1 shrink-0"></span>
-              <p class="text-xs text-slate-300 font-medium leading-snug">
-                Autogestión en punto de residencia mediante QR interactivo parametrizado.
+        <!-- Área de Contenido Principal -->
+        <div
+          class="flex-1 min-h-0 overflow-hidden flex flex-col justify-center gap-6 my-auto"
+        >
+          <!-- Título y Subtítulo -->
+          <div class="text-center max-w-4xl mx-auto space-y-2">
+            <h1
+              class="text-3xl md:text-5xl font-black tracking-tight text-white uppercase"
+            >
+              PROYECTO <span class="text-[#DA291C]">LIZ</span> — REGIONAL 5
+            </h1>
+            <p
+              class="text-sm md:text-lg text-slate-300 font-medium max-w-3xl mx-auto leading-relaxed"
+            >
+              Propuesta comercial creada y desarrollada internamente en la
+              Regional 5 para la atención y venta automática en conjuntos
+              residenciales mediante códigos QR automáticos.
+            </p>
+          </div>
+
+          <!-- 3 Tarjetas KPI Comerciales -->
+          <div class="grid grid-cols-3 gap-4 max-w-5xl w-full mx-auto">
+            <!-- KPI 1 -->
+            <div
+              class="bg-slate-800/80 border border-slate-700/80 rounded-xl p-4 shadow-lg backdrop-blur-sm flex flex-col justify-between"
+            >
+              <span
+                class="text-[11px] font-bold tracking-wider text-[#DA291C] uppercase"
+                >COPROPIEDADES / COBERTURA TERRITORIAL</span
+              >
+              <div class="my-2">
+                <span class="text-2xl md:text-3xl font-black text-white"
+                  >Distritos</span
+                >
+              </div>
+              <p class="text-xs text-slate-300 font-medium">
+                Conjuntos residenciales activos en el piloto de la Regional 5
+                con presencia en porterías.
               </p>
             </div>
-            <div class="flex items-start gap-2.5">
-              <span class="w-2.5 h-2.5 rounded-full bg-[#DA291C] mt-1 shrink-0"></span>
-              <p class="text-xs text-slate-300 font-medium leading-snug">
-                Trazabilidad directa de venta y despacho inmediato al supervisor vía WhatsApp.
+
+            <!-- KPI 2 -->
+            <div
+              class="bg-slate-800/80 border border-slate-700/80 rounded-xl p-4 shadow-lg backdrop-blur-sm flex flex-col justify-between"
+            >
+              <span
+                class="text-[11px] font-bold tracking-wider text-[#DA291C] uppercase"
+                >TIEMPOS DE ATENCIÓN / DISPONIBILIDAD</span
+              >
+              <div class="my-2">
+                <span class="text-2xl md:text-3xl font-black text-white"
+                  >24/7 Inmediato</span
+                >
+              </div>
+              <p class="text-xs text-slate-300 font-medium">
+                Atención continua con respuesta al cliente interesado en 2 a 3.5
+                segundos.
               </p>
             </div>
-            <div class="flex items-start gap-2.5">
-              <span class="w-2.5 h-2.5 rounded-full bg-[#DA291C] mt-1 shrink-0"></span>
-              <p class="text-xs text-slate-300 font-medium leading-snug">
-                Desarrollo 100% interno sin costos de intermediación comercial ni plataformas de terceros.
+
+            <!-- KPI 3 -->
+            <div
+              class="bg-slate-800/80 border border-slate-700/80 rounded-xl p-4 shadow-lg backdrop-blur-sm flex flex-col justify-between"
+            >
+              <span
+                class="text-[11px] font-bold tracking-wider text-[#DA291C] uppercase"
+                >COSTO DE ADQUISICIÓN / INTERMEDIACIÓN</span
+              >
+              <div class="my-2">
+                <span class="text-2xl md:text-3xl font-black text-white"
+                  >$483 a $1.008
+                </span>
+                <span class="text-xs font-bold text-slate-400 ml-1"
+                  >COP por conversación</span
+                >
+              </div>
+              <p class="text-xs text-slate-300 font-medium">
+                Desarrollo propio hecho en casa • Cero pagos a intermediarios o
+                plataformas externas.
               </p>
             </div>
           </div>
+
+          <!-- 3 Pilares del modelo en la parte inferior con viñetas rojas (#DA291C) -->
+          <div
+            class="bg-slate-900/90 border border-slate-800 rounded-xl p-3.5 max-w-5xl w-full mx-auto shadow-md"
+          >
+            <div
+              class="text-[11px] font-bold text-slate-400 tracking-wider uppercase mb-2 text-center"
+            >
+              PILARES DEL MODELO COMERCIAL DESARROLLADO EN CASA
+            </div>
+            <div class="grid grid-cols-3 gap-3">
+              <div class="flex items-start gap-2.5">
+                <span
+                  class="w-2.5 h-2.5 rounded-full bg-[#DA291C] mt-1 shrink-0"
+                ></span>
+                <p class="text-xs text-slate-300 font-medium leading-snug">
+                  Desarrollo 100% propio creado por el equipo de la Regional 5
+                </p>
+              </div>
+              <div class="flex items-start gap-2.5">
+                <span
+                  class="w-2.5 h-2.5 rounded-full bg-[#DA291C] mt-1 shrink-0"
+                ></span>
+                <p class="text-xs text-slate-300 font-medium leading-snug">
+                  Autogestión directa en la portería del conjunto residencial
+                  mediante códigos QR inteligentes parametrizados.
+                </p>
+              </div>
+              <div class="flex items-start gap-2.5">
+                <span
+                  class="w-2.5 h-2.5 rounded-full bg-[#DA291C] mt-1 shrink-0"
+                ></span>
+                <p class="text-xs text-slate-300 font-medium leading-snug">
+                  Envío automático e instantáneo del cliente interesado y su
+                  pedido directamente al WhatsApp del supervisor Claro.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <!-- Pie Portada -->
-      <div class="border-t border-slate-800 pt-2 flex items-center justify-between text-[11px] text-slate-400">
-        <span>Canal PH Claro Colombia • Regional 5</span>
-        <span class="font-semibold text-slate-300">Despliegue Operativo y Comercial Validado en Terreno</span>
-      </div>
-    </section>
+        <!-- Pie Portada -->
+        <div
+          class="border-t border-slate-800 pt-2 flex items-center justify-between text-[11px] text-slate-400"
+        >
+          <span>Claro Colombia Regional 5</span>
+          <span class="font-semibold text-slate-300"
+            >Despliegue Operativo y Comercial Validado en Terreno</span
+          >
+        </div>
+      </section>
 
-
-    <!-- ──────────────────────────────────────────────────────────
+      <!-- ──────────────────────────────────────────────────────────
          SLIDE 2: FASE 1 - SOCIALIZACIÓN Y ALIANZAS CON ADMINISTRACIONES
     ────────────────────────────────────────────────────────── -->
-    <section class="slide h-screen w-screen overflow-hidden flex flex-col p-6 pt-16 bg-white" id="slide-2">
-      <!-- Header -->
-      <div class="border-b border-slate-200 pb-2.5 mb-3 shrink-0">
-        <div class="flex items-center gap-2 mb-1">
-          <span class="px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-[#DA291C] text-white">FASE 1</span>
-          <h2 class="text-xl md:text-2xl font-black text-slate-900 tracking-tight">Socialización y Alianzas con Administraciones</h2>
+      <section
+        class="slide h-screen w-screen overflow-hidden flex flex-col p-6 pt-16 bg-white"
+        id="slide-2"
+      >
+        <!-- Header -->
+        <div class="border-b border-slate-200 pb-2 mb-2 shrink-0">
+          <div class="flex items-center gap-2 mb-1">
+            <span
+              class="px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-[#DA291C] text-white"
+              >FASE 1</span
+            >
+            <h2
+              class="text-xl md:text-2xl font-black text-slate-900 tracking-tight"
+            >
+              Socialización y Alianzas con Administraciones
+            </h2>
+          </div>
+          <!-- Subtítulo con 3 viñetas ejecutivas integradas -->
+          <div
+            class="grid grid-cols-3 gap-2 bg-slate-50 border border-slate-200 rounded-lg p-2"
+          >
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-[#DA291C] shrink-0"></span>
+              <p class="text-xs text-slate-700 leading-snug">
+                <strong class="text-slate-900 font-semibold"
+                  >Exclusividad comunal:</strong
+                >
+                Presencia autorizada en carteleras y recepciones sin invadir
+                zonas privadas.
+              </p>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-[#DA291C] shrink-0"></span>
+              <p class="text-xs text-slate-700 leading-snug">
+                <strong class="text-slate-900 font-semibold"
+                  >Plan de beneficios:</strong
+                >
+                Retribución tangible en dotación para áreas comunes por
+                cumplimiento de metas.
+              </p>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-[#DA291C] shrink-0"></span>
+              <p class="text-xs text-slate-700 leading-snug">
+                <strong class="text-slate-900 font-semibold">Seguridad:</strong>
+                Trato directo con supervisores Claro identificados, sin
+                intermediarios desconocidos.
+              </p>
+            </div>
+          </div>
         </div>
-        <!-- Subtítulo con 3 viñetas ejecutivas integradas -->
-        <div class="grid grid-cols-3 gap-2 bg-slate-50 border border-slate-200 rounded-lg p-2 mt-1">
-          <div class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-[#DA291C] shrink-0"></span>
-            <p class="text-xs text-slate-700 leading-snug"><strong class="text-slate-900 font-semibold">Exclusividad comunal:</strong> Presencia autorizada en carteleras y recepciones sin invadir zonas privadas.</p>
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-[#DA291C] shrink-0"></span>
-            <p class="text-xs text-slate-700 leading-snug"><strong class="text-slate-900 font-semibold">Plan de beneficios:</strong> Retribución tangible en dotación para áreas comunes por cumplimiento de metas.</p>
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-[#DA291C] shrink-0"></span>
-            <p class="text-xs text-slate-700 leading-snug"><strong class="text-slate-900 font-semibold">Seguridad:</strong> Trato directo con supervisores Claro identificados, sin intermediarios desconocidos.</p>
-          </div>
-        </div>
-      </div>
 
-      <!-- Layout dividido en 2 columnas: 12 columnas (col-span-7 y col-span-5) -->
-      <div class="flex-1 min-h-0 grid grid-cols-12 gap-5 overflow-hidden">
-        <!-- Columna Izquierda (col-span-7): Cuadrícula compacta 3x2 -->
-        <div class="col-span-7 flex flex-col min-h-0 overflow-hidden">
-          <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1.5 shrink-0">REGISTRO FOTOGRÁFICO DE CONCERTACIÓN EN CONJUNTOS</div>
-          <div class="grid grid-cols-3 grid-rows-2 gap-2.5 h-full flex-1 min-h-0">
-            <!-- Foto 1 -->
-            <div class="overflow-hidden rounded-lg cursor-pointer relative group bg-slate-100 shadow-sm border border-slate-200" onclick="openModal('img', './FASE 1/ADMIN-LIZ.jpg', 'ADMIN-LIZ: Presentación inicial del modelo Liz ante la administración.')">
-              <img src="./FASE 1/ADMIN-LIZ.jpg" alt="Presentación inicial" class="h-full w-full object-cover group-hover:scale-105 transition duration-300" loading="lazy" />
-              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition p-2 flex items-end">
-                <span class="text-[11px] font-medium text-white leading-tight">Presentación a la administración</span>
+        <!-- Layout dividido en 2 columnas: 12 columnas (col-span-7 y col-span-5) -->
+        <div class="flex-1 min-h-0 grid grid-cols-12 gap-4 overflow-hidden">
+          <!-- Columna Izquierda (col-span-7): Cuadrícula compacta 3x2 con fotos maximizadas y etiquetas fijas -->
+          <div class="col-span-7 flex flex-col min-h-0 overflow-hidden">
+            <div class="flex items-center justify-between mb-1 shrink-0">
+              <span
+                class="text-[11px] font-bold text-slate-500 uppercase tracking-wider"
+                >REGISTRO FOTOGRÁFICO DE CONCERTACIÓN EN CONJUNTOS</span
+              >
+              <span class="text-[10px] text-slate-400 font-medium"
+                >Haga clic en cualquier foto para ampliarla</span
+              >
+            </div>
+
+            <div
+              class="grid grid-cols-3 grid-rows-2 gap-2 h-full flex-1 min-h-0"
+            >
+              <!-- Foto 1 -->
+              <div
+                class="overflow-hidden rounded-lg cursor-pointer relative group bg-slate-100 shadow-sm border border-slate-200"
+                onclick="
+                  openModal(
+                    'img',
+                    './FASE 1/ADMIN-LIZ.jpg',
+                    'ADMIN-LIZ: Presentación inicial del modelo Liz ante la administración del conjunto.',
+                  )
+                "
+              >
+                <img
+                  src="./FASE 1/ADMIN-LIZ.jpg"
+                  alt="Presentación inicial"
+                  class="h-full w-full object-cover group-hover:scale-105 transition duration-300"
+                  loading="lazy"
+                />
+                <!-- Badge flotante esquina superior derecha -->
+                <span
+                  class="absolute top-1.5 right-1.5 bg-black/75 backdrop-blur-sm text-[10px] font-bold text-white px-1.5 py-0.5 rounded shadow z-10 pointer-events-none flex items-center gap-1"
+                >
+                  🔍 Ampliar
+                </span>
+                <!-- Etiqueta fija en la parte inferior -->
+                <div
+                  class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/85 via-black/55 to-transparent p-1.5 pt-4 text-[10px] font-semibold text-white leading-tight z-10"
+                >
+                  Presentación a la administración
+                </div>
+              </div>
+
+              <!-- Foto 2 -->
+              <div
+                class="overflow-hidden rounded-lg cursor-pointer relative group bg-slate-100 shadow-sm border border-slate-200"
+                onclick="
+                  openModal(
+                    'img',
+                    './FASE 1/ADMIN3-LIZ.jpg',
+                    'ADMIN3-LIZ: Firma y concertación de exhibición publicitaria con el consejo de administración.',
+                  )
+                "
+              >
+                <img
+                  src="./FASE 1/ADMIN3-LIZ.jpg"
+                  alt="Firma de exhibición"
+                  class="h-full w-full object-cover group-hover:scale-105 transition duration-300"
+                  loading="lazy"
+                />
+                <span
+                  class="absolute top-1.5 right-1.5 bg-black/75 backdrop-blur-sm text-[10px] font-bold text-white px-1.5 py-0.5 rounded shadow z-10 pointer-events-none flex items-center gap-1"
+                >
+                  🔍 Ampliar
+                </span>
+                <div
+                  class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/85 via-black/55 to-transparent p-1.5 pt-4 text-[10px] font-semibold text-white leading-tight z-10"
+                >
+                  Concertación con consejo
+                </div>
+              </div>
+
+              <!-- Foto 3 -->
+              <div
+                class="overflow-hidden rounded-lg cursor-pointer relative group bg-slate-100 shadow-sm border border-slate-200"
+                onclick="
+                  openModal(
+                    'img',
+                    './FASE 1/DISEÑO-LIZ.jpg',
+                    'DISEÑO-LIZ: Brochure institucional y material POP homologado para zonas residenciales.',
+                  )
+                "
+              >
+                <img
+                  src="./FASE 1/DISEÑO-LIZ.jpg"
+                  alt="Brochure institucional"
+                  class="h-full w-full object-cover group-hover:scale-105 transition duration-300"
+                  loading="lazy"
+                />
+                <span
+                  class="absolute top-1.5 right-1.5 bg-black/75 backdrop-blur-sm text-[10px] font-bold text-white px-1.5 py-0.5 rounded shadow z-10 pointer-events-none flex items-center gap-1"
+                >
+                  🔍 Ampliar
+                </span>
+                <div
+                  class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/85 via-black/55 to-transparent p-1.5 pt-4 text-[10px] font-semibold text-white leading-tight z-10"
+                >
+                  Brochure y material POP
+                </div>
+              </div>
+
+              <!-- Foto 4 -->
+              <div
+                class="overflow-hidden rounded-lg cursor-pointer relative group bg-slate-100 shadow-sm border border-slate-200"
+                onclick="
+                  openModal(
+                    'img',
+                    './FASE 1/UBICACION-LIZ.jpeg',
+                    'UBICACION-LIZ: Inspección de tráfico peatonal para la ubicación estratégica de habladores con QR.',
+                  )
+                "
+              >
+                <img
+                  src="./FASE 1/UBICACION-LIZ.jpeg"
+                  alt="Inspección de tráfico peatonal"
+                  class="h-full w-full object-cover group-hover:scale-105 transition duration-300"
+                  loading="lazy"
+                />
+                <span
+                  class="absolute top-1.5 right-1.5 bg-black/75 backdrop-blur-sm text-[10px] font-bold text-white px-1.5 py-0.5 rounded shadow z-10 pointer-events-none flex items-center gap-1"
+                >
+                  🔍 Ampliar
+                </span>
+                <div
+                  class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/85 via-black/55 to-transparent p-1.5 pt-4 text-[10px] font-semibold text-white leading-tight z-10"
+                >
+                  Ubicación estratégica
+                </div>
+              </div>
+
+              <!-- Foto 5 -->
+              <div
+                class="overflow-hidden rounded-lg cursor-pointer relative group bg-slate-100 shadow-sm border border-slate-200"
+                onclick="
+                  openModal(
+                    'img',
+                    './FASE 1/UBICACION2-LIZ.jpeg',
+                    'UBICACION2-LIZ: Fijación de material publicitario en carteleras y recepciones.',
+                  )
+                "
+              >
+                <img
+                  src="./FASE 1/UBICACION2-LIZ.jpeg"
+                  alt="Fijación de material"
+                  class="h-full w-full object-cover group-hover:scale-105 transition duration-300"
+                  loading="lazy"
+                />
+                <span
+                  class="absolute top-1.5 right-1.5 bg-black/75 backdrop-blur-sm text-[10px] font-bold text-white px-1.5 py-0.5 rounded shadow z-10 pointer-events-none flex items-center gap-1"
+                >
+                  🔍 Ampliar
+                </span>
+                <div
+                  class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/85 via-black/55 to-transparent p-1.5 pt-4 text-[10px] font-semibold text-white leading-tight z-10"
+                >
+                  Fijación en portería
+                </div>
+              </div>
+
+              <!-- Foto 6 -->
+              <div
+                class="overflow-hidden rounded-lg cursor-pointer relative group bg-slate-100 shadow-sm border border-slate-200"
+                onclick="
+                  openModal(
+                    'img',
+                    './FASE 1/VIGILANTE-LIZ.jpg',
+                    'VIGILANTE-LIZ: Socialización del flujo de autogestión con el personal de vigilancia y acceso.',
+                  )
+                "
+              >
+                <img
+                  src="./FASE 1/VIGILANTE-LIZ.jpg"
+                  alt="Socialización con vigilancia"
+                  class="h-full w-full object-cover group-hover:scale-105 transition duration-300"
+                  loading="lazy"
+                />
+                <span
+                  class="absolute top-1.5 right-1.5 bg-black/75 backdrop-blur-sm text-[10px] font-bold text-white px-1.5 py-0.5 rounded shadow z-10 pointer-events-none flex items-center gap-1"
+                >
+                  🔍 Ampliar
+                </span>
+                <div
+                  class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/85 via-black/55 to-transparent p-1.5 pt-4 text-[10px] font-semibold text-white leading-tight z-10"
+                >
+                  Capacitación al vigilante
+                </div>
               </div>
             </div>
-            <!-- Foto 2 -->
-            <div class="overflow-hidden rounded-lg cursor-pointer relative group bg-slate-100 shadow-sm border border-slate-200" onclick="openModal('img', './FASE 1/ADMIN3-LIZ.jpg', 'ADMIN3-LIZ: Firma y concertación de exhibición publicitaria.')">
-              <img src="./FASE 1/ADMIN3-LIZ.jpg" alt="Firma de exhibición" class="h-full w-full object-cover group-hover:scale-105 transition duration-300" loading="lazy" />
-              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition p-2 flex items-end">
-                <span class="text-[11px] font-medium text-white leading-tight">Concertación con consejo</span>
-              </div>
-            </div>
-            <!-- Foto 3 -->
-            <div class="overflow-hidden rounded-lg cursor-pointer relative group bg-slate-100 shadow-sm border border-slate-200" onclick="openModal('img', './FASE 1/DISEÑO-LIZ.jpg', 'DISEÑO-LIZ: Brochure institucional y material POP homologado.')">
-              <img src="./FASE 1/DISEÑO-LIZ.jpg" alt="Brochure institucional" class="h-full w-full object-cover group-hover:scale-105 transition duration-300" loading="lazy" />
-              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition p-2 flex items-end">
-                <span class="text-[11px] font-medium text-white leading-tight">Brochure y material POP</span>
-              </div>
-            </div>
-            <!-- Foto 4 -->
-            <div class="overflow-hidden rounded-lg cursor-pointer relative group bg-slate-100 shadow-sm border border-slate-200" onclick="openModal('img', './FASE 1/UBICACION-LIZ.jpeg', 'UBICACION-LIZ: Inspección de tráfico peatonal para habladores con QR.')">
-              <img src="./FASE 1/UBICACION-LIZ.jpeg" alt="Inspección de tráfico peatonal" class="h-full w-full object-cover group-hover:scale-105 transition duration-300" loading="lazy" />
-              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition p-2 flex items-end">
-                <span class="text-[11px] font-medium text-white leading-tight">Ubicación estratégica</span>
-              </div>
-            </div>
-            <!-- Foto 5 -->
-            <div class="overflow-hidden rounded-lg cursor-pointer relative group bg-slate-100 shadow-sm border border-slate-200" onclick="openModal('img', './FASE 1/UBICACION2-LIZ.jpeg', 'UBICACION2-LIZ: Fijación de material publicitario en carteleras y recepciones.')">
-              <img src="./FASE 1/UBICACION2-LIZ.jpeg" alt="Fijación de material" class="h-full w-full object-cover group-hover:scale-105 transition duration-300" loading="lazy" />
-              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition p-2 flex items-end">
-                <span class="text-[11px] font-medium text-white leading-tight">Fijación en portería</span>
-              </div>
-            </div>
-            <!-- Foto 6 -->
-            <div class="overflow-hidden rounded-lg cursor-pointer relative group bg-slate-100 shadow-sm border border-slate-200" onclick="openModal('img', './FASE 1/VIGILANTE-LIZ.jpg', 'VIGILANTE-LIZ: Socialización del flujo con personal de vigilancia.')">
-              <img src="./FASE 1/VIGILANTE-LIZ.jpg" alt="Socialización con vigilancia" class="h-full w-full object-cover group-hover:scale-105 transition duration-300" loading="lazy" />
-              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition p-2 flex items-end">
-                <span class="text-[11px] font-medium text-white leading-tight">Capacitación al vigilante</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Columna Derecha (col-span-5): Video Brochure -->
-        <div class="col-span-5 flex flex-col justify-between min-h-0 overflow-hidden bg-slate-50 border border-slate-200 rounded-xl p-3 shadow-sm">
-          <div class="flex items-center justify-between mb-1.5 shrink-0">
-            <span class="text-[11px] font-bold text-[#B91C1C] uppercase tracking-wider">BROCHURE INSTITUCIONAL EN VIDEO</span>
-            <span class="text-[10px] font-semibold text-slate-500 bg-white border border-slate-200 px-2 py-0.5 rounded">Proyección en Administración</span>
           </div>
 
-          <!-- Contenedor de Video -->
-          <div class="flex-1 min-h-0 flex items-center justify-center bg-black rounded-lg overflow-hidden shadow relative cursor-pointer" onclick="openModal('video', './FASE 1/BROCHURE-LIZ.mp4', 'Brochure Institucional Liz — Presentación proyectada a las administraciones.')">
-            <video controls preload="metadata" class="w-full max-h-[48vh] rounded-lg bg-black object-contain">
-              <source src="./FASE 1/BROCHURE-LIZ.mp4" type="video/mp4" />
-            </video>
-
-            <!-- Video Print Fallback (evita cuadros negros en PDF) -->
-            <div class="video-print-fallback hidden w-full h-full border-2 border-dashed border-slate-300 rounded-lg p-6 flex-col items-center justify-center text-center bg-slate-50">
-              <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center mb-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#DA291C]" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-              </div>
-              <span class="text-xs font-bold text-slate-800 uppercase">Video: BROCHURE-LIZ.mp4</span>
-              <span class="text-[11px] text-slate-500 mt-1">Material interactivo para proyección presencial</span>
-            </div>
-          </div>
-
-          <!-- Texto de apoyo al pie -->
-          <p class="text-xs text-slate-600 mt-2 leading-relaxed bg-white p-2 rounded border border-slate-200 shrink-0">
-            Video comercial interactivo proyectado a las administraciones para demostrar la inmediatez del canal y los beneficios comunales acordados.
-          </p>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- ──────────────────────────────────────────────────────────
-         SLIDE 3: FASE 2 - EL ALMA DE LIZ (AUTOMATIZACIÓN Y GOBERNANZA)
-    ────────────────────────────────────────────────────────── -->
-    <section class="slide h-screen w-screen overflow-hidden flex flex-col p-6 pt-16 bg-white" id="slide-3">
-      <!-- Header -->
-      <div class="border-b border-slate-200 pb-2 mb-2.5 shrink-0">
-        <div class="flex items-center gap-2 mb-0.5">
-          <span class="px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-[#DA291C] text-white">FASE 2</span>
-          <h2 class="text-xl md:text-2xl font-black text-slate-900 tracking-tight">El Alma de Liz — Automatización y Control Operativo</h2>
-        </div>
-        <p class="text-xs text-slate-600 leading-snug">
-          Arquitectura transaccional sobre Meta WhatsApp Cloud API v21.0 y servidor privado VPS 24/7, gobernada por n8n y sincronizada con Google Sheets en tiempo real.
-        </p>
-      </div>
-
-      <!-- CONTENEDOR 100% SIN DESBORDAMIENTO: 2x2 grid -->
-      <div class="flex-1 min-h-0 grid grid-cols-2 grid-rows-2 gap-3.5 overflow-hidden">
-        <!-- Tarjeta 1: GENERADOR -->
-        <div class="bg-white border border-slate-200 rounded-xl p-2.5 flex flex-col justify-between overflow-hidden shadow-sm hover:border-red-500 transition">
-          <div class="overflow-hidden rounded border border-slate-100 bg-slate-50 cursor-pointer flex items-center justify-center flex-1 min-h-0 mb-2" onclick="openModal('img', './FASE 2/GENERADOR-LIZ.png', 'MÓDULO CORE: GENERADOR QR — Emisión de QR con tags territoriales [ZONA|DISTRITO|PUNTO|RED]')">
-            <img src="./FASE 2/GENERADOR-LIZ.png" alt="Generador QR Liz" class="h-[23vh] w-full object-contain" loading="lazy" />
-          </div>
-          <div class="bg-slate-50 p-2 rounded border border-slate-200 shrink-0">
-            <div class="text-[10px] font-extrabold text-[#B91C1C] uppercase tracking-wider">[MÓDULO CORE: GENERADOR QR]</div>
-            <p class="text-xs text-slate-700 leading-tight mt-0.5">Emisión de QR de alta resolución con tags territoriales [ZONA|DISTRITO|PUNTO|RED].</p>
-          </div>
-        </div>
-
-        <!-- Tarjeta 2: OFERTAS -->
-        <div class="bg-white border border-slate-200 rounded-xl p-2.5 flex flex-col justify-between overflow-hidden shadow-sm hover:border-red-500 transition">
-          <div class="overflow-hidden rounded border border-slate-100 bg-slate-50 cursor-pointer flex items-center justify-center flex-1 min-h-0 mb-2" onclick="openModal('img', './FASE 2/OFERTAS-LIZ.png', 'COMERCIAL: MATRIZ DE OFERTAS — Matriz de 24 planes y filtro algorítmico por tecnología factible (FTTH / HFC)')">
-            <img src="./FASE 2/OFERTAS-LIZ.png" alt="Matriz de Ofertas Liz" class="h-[23vh] w-full object-contain" loading="lazy" />
-          </div>
-          <div class="bg-slate-50 p-2 rounded border border-slate-200 shrink-0">
-            <div class="text-[10px] font-extrabold text-[#B91C1C] uppercase tracking-wider">[COMERCIAL: MATRIZ DE OFERTAS]</div>
-            <p class="text-xs text-slate-700 leading-tight mt-0.5">Matriz de 24 planes y filtro algorítmico por tecnología factible (FTTH / HFC).</p>
-          </div>
-        </div>
-
-        <!-- Tarjeta 3: SUPERVISORES -->
-        <div class="bg-white border border-slate-200 rounded-xl p-2.5 flex flex-col justify-between overflow-hidden shadow-sm hover:border-red-500 transition">
-          <div class="overflow-hidden rounded border border-slate-100 bg-slate-50 cursor-pointer flex items-center justify-center flex-1 min-h-0 mb-2" onclick="openModal('img', './FASE 2/SUPERVISORES-LIZ.png', 'OPERACIONES: SUPERVISORES ASIGNADOS — Directorio territorial y asignación inmediata de alertas a WhatsApp')">
-            <img src="./FASE 2/SUPERVISORES-LIZ.png" alt="Supervisores Liz" class="h-[23vh] w-full object-contain" loading="lazy" />
-          </div>
-          <div class="bg-slate-50 p-2 rounded border border-slate-200 shrink-0">
-            <div class="text-[10px] font-extrabold text-[#B91C1C] uppercase tracking-wider">[OPERACIONES: SUPERVISORES ASIGNADOS]</div>
-            <p class="text-xs text-slate-700 leading-tight mt-0.5">Directorio territorial y asignación inmediata de alertas a WhatsApp.</p>
-          </div>
-        </div>
-
-        <!-- Tarjeta 4: VENTAS -->
-        <div class="bg-white border border-slate-200 rounded-xl p-2.5 flex flex-col justify-between overflow-hidden shadow-sm hover:border-red-500 transition">
-          <div class="overflow-hidden rounded border border-slate-100 bg-slate-50 cursor-pointer flex items-center justify-center flex-1 min-h-0 mb-2" onclick="openModal('img', './FASE 2/VENTAS-LIZ.png', 'GOBERNANZA: MONITOR DE VENTAS — Trazabilidad de sesiones y ventas en vivo sin costos de licencias SaaS')">
-            <img src="./FASE 2/VENTAS-LIZ.png" alt="Monitor de Ventas Liz" class="h-[23vh] w-full object-contain" loading="lazy" />
-          </div>
-          <div class="bg-slate-50 p-2 rounded border border-slate-200 shrink-0">
-            <div class="text-[10px] font-extrabold text-[#B91C1C] uppercase tracking-wider">[GOBERNANZA: MONITOR DE VENTAS]</div>
-            <p class="text-xs text-slate-700 leading-tight mt-0.5">Trazabilidad de sesiones y ventas en vivo sin costos de licencias SaaS.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- ──────────────────────────────────────────────────────────
-         SLIDE 4: FASE 3 - LIZ EN TERRENO Y DEMO EN SALA
-    ────────────────────────────────────────────────────────── -->
-    <section class="slide h-screen w-screen overflow-hidden flex flex-col p-6 pt-16 bg-white" id="slide-4">
-      <!-- Header -->
-      <div class="border-b border-slate-200 pb-2 mb-2.5 shrink-0">
-        <div class="flex items-center gap-2 mb-0.5">
-          <span class="px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-[#DA291C] text-white">FASE 3</span>
-          <h2 class="text-xl md:text-2xl font-black text-slate-900 tracking-tight">Liz en Terreno y Prueba Interactiva en Sala</h2>
-        </div>
-        <p class="text-xs text-slate-600 leading-snug">
-          Despliegue en copropiedades y demostración interactiva del flujo transaccional.
-        </p>
-      </div>
-
-      <!-- Layout en 2 columnas balanceadas (col-span-5 y col-span-7) -->
-      <div class="flex-1 min-h-0 grid grid-cols-12 gap-5 overflow-hidden">
-        <!-- Columna Izquierda (col-span-5): Hero QR + Video Demo -->
-        <div class="col-span-5 flex flex-col gap-3 justify-between min-h-0 overflow-hidden">
-          <!-- Tarjeta Hero QR -->
-          <div class="border-2 border-red-200 bg-red-50/40 rounded-xl p-3 flex flex-col items-center justify-between shadow-sm shrink-0">
-            <div class="text-center mb-1.5">
-              <span class="text-[11px] font-extrabold text-[#B91C1C] uppercase tracking-wider">PRUEBA EN VIVO CON SU CELULAR</span>
-              <p class="text-xs font-semibold text-slate-800">Enfoque su cámara aquí ➔ Escoja un plan ➔ Valide la respuesta en su WhatsApp</p>
+          <!-- Columna Derecha (col-span-5): Video Brochure que aprovecha todo el alto disponible -->
+          <div
+            class="col-span-5 flex flex-col justify-between min-h-0 overflow-hidden bg-slate-50 border border-slate-200 rounded-xl p-3 shadow-sm"
+          >
+            <div class="flex items-center justify-between mb-1.5 shrink-0">
+              <span
+                class="text-[11px] font-bold text-[#B91C1C] uppercase tracking-wider"
+                >BROCHURE INSTITUCIONAL EN VIDEO</span
+              >
+              <span
+                class="text-[10px] font-semibold text-slate-500 bg-white border border-slate-200 px-2 py-0.5 rounded"
+                >Proyección en Administración</span
+              >
             </div>
 
-            <div class="bg-white p-2 rounded-lg border border-red-100 shadow-inner cursor-pointer" onclick="openModal('img', './FASE 3/QR-LIZ.jpeg', 'QR Oficial Liz — Canal PH Regional 5')">
-              <img src="./FASE 3/QR-LIZ.jpeg" alt="QR Liz Canal PH" class="h-[25vh] object-contain mx-auto rounded-lg" loading="lazy" />
-            </div>
-
-            <div class="mt-2 text-center">
-              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#25D366] text-white shadow-sm">
-                <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.072-2.129-.533-1.838-.775-3.033-2.648-3.125-2.772-.092-.124-.749-.997-.749-1.902 0-.904.474-1.349.643-1.533.169-.184.368-.23.491-.23.123 0 .245.002.353.007.113.005.263-.043.412.316.154.37.525 1.282.57 1.375.046.093.077.201.016.324-.061.123-.092.2-.184.308-.092.107-.194.24-.277.322-.092.092-.189.192-.081.378.107.185.478.788 1.025 1.275.706.628 1.302.822 1.487.914.184.092.292.077.4-.046.108-.123.461-.538.584-.723.123-.185.246-.154.415-.092.17.061 1.077.508 1.262.6.184.092.308.138.354.215.046.077.046.446-.098.851z"/></svg>
-                Línea verificada +57 314 3363627
-              </span>
-            </div>
-          </div>
-
-          <!-- Tarjeta Demo Video -->
-          <div class="bg-slate-50 border border-slate-200 rounded-xl p-2.5 flex flex-col justify-between flex-1 min-h-0 overflow-hidden shadow-sm">
-            <div class="text-[10px] font-extrabold text-[#B91C1C] uppercase tracking-wider mb-1 shrink-0">DEMO EN VIVO: INTERACCIÓN EN RECEPCIÓN</div>
-            <div class="flex-1 min-h-0 flex items-center justify-center bg-black rounded-lg overflow-hidden relative cursor-pointer" onclick="openModal('video', './FASE 3/PRESENTACION-LIZ.mp4', 'DEMO EN VIVO: Interacción de residente escaneando en recepción.')">
-              <video controls preload="metadata" class="w-full max-h-[22vh] rounded-lg bg-black object-contain shadow-sm">
-                <source src="./FASE 3/PRESENTACION-LIZ.mp4" type="video/mp4" />
+            <!-- Contenedor del Video aprovechando todo el alto disponible -->
+            <div
+              class="flex-1 min-h-0 flex items-center justify-center bg-black rounded-lg overflow-hidden shadow relative cursor-pointer"
+              onclick="
+                openModal(
+                  'video',
+                  './FASE 1/BROCHURE-LIZ.mp4',
+                  'Brochure Institucional Liz — Presentación proyectada a las administraciones.',
+                )
+              "
+            >
+              <video
+                controls
+                preload="metadata"
+                class="w-full h-full object-contain rounded-lg bg-black"
+              >
+                <source src="./FASE 1/BROCHURE-LIZ.mp4" type="video/mp4" />
               </video>
-              <div class="video-print-fallback hidden w-full h-full border-2 border-dashed border-slate-300 rounded-lg p-3 flex-col items-center justify-center text-center bg-slate-100">
-                <span class="text-xs font-bold text-slate-800 uppercase">Video: PRESENTACION-LIZ.mp4</span>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <!-- Columna Derecha (col-span-7): Flujo de Usuario + Barra Legal -->
-        <div class="col-span-7 flex flex-col justify-between min-h-0 overflow-hidden bg-slate-50 border border-slate-200 rounded-xl p-3 shadow-sm">
-          <div class="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider mb-2 shrink-0">
-            SECUENCIA DEL FLUJO DE USUARIO EN WHATSAPP
-          </div>
-
-          <!-- Grilla horizontal de las 3 capturas -->
-          <div class="grid grid-cols-3 gap-3 flex-1 min-h-0 overflow-hidden">
-            <!-- Paso 1 -->
-            <div class="flex flex-col h-full overflow-hidden bg-white rounded-lg border border-slate-200 p-2 shadow-sm">
-              <div class="flex-1 min-h-0 flex items-center justify-center bg-slate-900 rounded overflow-hidden cursor-pointer" onclick="openModal('img', './FASE 3/INTERACCION1-LIZ.png', 'Paso 1 — Menú inicial y bienvenida institucional')">
-                <img src="./FASE 3/INTERACCION1-LIZ.png" alt="Interacción 1" class="h-[50vh] w-full object-contain" loading="lazy" />
-              </div>
-              <div class="mt-2 text-center shrink-0">
-                <span class="text-[10px] font-bold text-[#B91C1C] uppercase block">PASO 1</span>
-                <p class="text-[11px] font-semibold text-slate-700 leading-tight">Menú inicial y bienvenida institucional</p>
-              </div>
-            </div>
-
-            <!-- Paso 2 -->
-            <div class="flex flex-col h-full overflow-hidden bg-white rounded-lg border border-slate-200 p-2 shadow-sm">
-              <div class="flex-1 min-h-0 flex items-center justify-center bg-slate-900 rounded overflow-hidden cursor-pointer" onclick="openModal('img', './FASE 3/INTERACCION2-LIZ.png', 'Paso 2 — Despliegue de ofertas por distrito')">
-                <img src="./FASE 3/INTERACCION2-LIZ.png" alt="Interacción 2" class="h-[50vh] w-full object-contain" loading="lazy" />
-              </div>
-              <div class="mt-2 text-center shrink-0">
-                <span class="text-[10px] font-bold text-[#B91C1C] uppercase block">PASO 2</span>
-                <p class="text-[11px] font-semibold text-slate-700 leading-tight">Despliegue de ofertas por distrito</p>
+              <!-- Video Print Fallback (evita cuadros negros en PDF) -->
+              <div
+                class="video-print-fallback hidden w-full h-full border-2 border-dashed border-slate-300 rounded-lg p-6 flex-col items-center justify-center text-center bg-slate-50"
+              >
+                <div
+                  class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center mb-2"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="w-5 h-5 text-[#DA291C]"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <polygon points="5 3 19 12 5 21 5 3" />
+                  </svg>
+                </div>
+                <span class="text-xs font-bold text-slate-800 uppercase"
+                  >Video: BROCHURE-LIZ.mp4</span
+                >
+                <span class="text-[11px] text-slate-500 mt-1"
+                  >Material interactivo para proyección presencial</span
+                >
               </div>
             </div>
 
-            <!-- Paso 3 -->
-            <div class="flex flex-col h-full overflow-hidden bg-white rounded-lg border border-slate-200 p-2 shadow-sm">
-              <div class="flex-1 min-h-0 flex items-center justify-center bg-slate-900 rounded overflow-hidden cursor-pointer" onclick="openModal('img', './FASE 3/INTERACCION3-LIZ.png', 'Paso 3 — Captura de datos y radicación')">
-                <img src="./FASE 3/INTERACCION3-LIZ.png" alt="Interacción 3" class="h-[50vh] w-full object-contain" loading="lazy" />
-              </div>
-              <div class="mt-2 text-center shrink-0">
-                <span class="text-[10px] font-bold text-[#B91C1C] uppercase block">PASO 3</span>
-                <p class="text-[11px] font-semibold text-slate-700 leading-tight">Captura de datos y radicación</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Barra inferior obligatoria: Blindaje Legal -->
-          <div class="bg-white border-l-4 border-l-[#DA291C] border border-slate-200 p-2.5 rounded-lg mt-3 shrink-0 flex items-center gap-2.5">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#B91C1C] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            <p class="text-xs text-slate-700 leading-snug">
-              <strong class="text-slate-900 font-bold">Blindaje Legal:</strong> Validación de identidad delegada a llamada telefónica del asesor para estricto cumplimiento de Habeas Data (Ley 1581 de 2012).
+            <!-- Texto de apoyo al pie -->
+            <p
+              class="text-xs text-slate-600 mt-2 leading-relaxed bg-white p-2 rounded border border-slate-200 shrink-0"
+            >
+              Video comercial interactivo proyectado a las administraciones para
+              demostrar la inmediatez del canal y los beneficios comunales
+              acordados.
             </p>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
+      <!-- ──────────────────────────────────────────────────────────
+         SLIDE 3: FASE 2 - EL ALMA DE LIZ (LENGUAJE 100% COMERCIAL)
+    ────────────────────────────────────────────────────────── -->
+      <section
+        class="slide h-screen w-screen overflow-hidden flex flex-col p-6 pt-16 bg-white"
+        id="slide-3"
+      >
+        <!-- Header -->
+        <div class="border-b border-slate-200 pb-2 mb-2 shrink-0">
+          <div class="flex items-center gap-2 mb-0.5">
+            <span
+              class="px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-[#DA291C] text-white"
+              >FASE 2</span
+            >
+            <h2
+              class="text-xl md:text-2xl font-black text-slate-900 tracking-tight"
+            >
+              El Alma de Liz — Herramientas Propias y Control Operativo
+            </h2>
+          </div>
+          <p class="text-xs text-slate-600 leading-snug">
+            Herramientas propias desarrolladas en la Regional 5 para administrar
+            planes, crear códigos QR al instante y entregar cada venta al
+            supervisor sin cobros de intermediarios.
+          </p>
+        </div>
 
-    <!-- ──────────────────────────────────────────────────────────
+        <!-- CONTENEDOR 100% SIN DESBORDAMIENTO: 2x2 grid con imágenes maximizadas (82% del espacio) -->
+        <div
+          class="flex-1 min-h-0 grid grid-cols-2 grid-rows-2 gap-3.5 overflow-hidden"
+        >
+          <!-- Tarjeta 1: GENERADOR QR -->
+          <div
+            class="group bg-white border border-slate-200 rounded-xl p-2 flex flex-col justify-between overflow-hidden shadow-sm hover:border-red-500 transition duration-200"
+          >
+            <div
+              class="flex-1 min-h-0 overflow-hidden rounded border border-slate-100 bg-slate-50 cursor-pointer flex items-center justify-center relative p-1"
+              onclick="
+                openModal(
+                  'img',
+                  './FASE 2/GENERADOR-LIZ.png',
+                  'HERRAMIENTA PROPIA: GENERADOR DE QR — Desarrollado por nosotros mismos en la Regional 5 para crear códigos en segundos',
+                )
+              "
+            >
+              <img
+                src="./FASE 2/GENERADOR-LIZ.png"
+                alt="Generador QR Liz"
+                class="w-full h-full max-h-full object-contain group-hover:scale-[1.03] transition duration-300"
+                loading="lazy"
+              />
+            </div>
+            <!-- Barra compacta inferior de una sola línea -->
+            <div
+              class="bg-slate-50 p-1.5 rounded border border-slate-200 shrink-0 flex items-center justify-between gap-2 mt-1.5"
+            >
+              <div class="min-w-0 flex-1">
+                <span
+                  class="text-[10.5px] font-extrabold text-[#B91C1C] uppercase tracking-wide block truncate"
+                  >HERRAMIENTA PROPIA: GENERADOR DE QR</span
+                >
+                <p class="text-[11px] text-slate-700 leading-tight truncate">
+                  Desarrollado en Regional 5 para crear códigos en segundos,
+                  identificando conjunto y red disponible.
+                </p>
+              </div>
+              <button
+                onclick="
+                  openModal(
+                    'img',
+                    './FASE 2/GENERADOR-LIZ.png',
+                    'HERRAMIENTA PROPIA: GENERADOR DE QR',
+                  )
+                "
+                class="inline-flex items-center gap-1 bg-[#DA291C] hover:bg-[#B91C1C] text-white text-[10px] font-bold px-2 py-1 rounded shrink-0 shadow-sm transition"
+              >
+                <span>🔍 Ver captura completa</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Tarjeta 2: CATÁLOGO DE PLANES -->
+          <div
+            class="group bg-white border border-slate-200 rounded-xl p-2 flex flex-col justify-between overflow-hidden shadow-sm hover:border-red-500 transition duration-200"
+          >
+            <div
+              class="flex-1 min-h-0 overflow-hidden rounded border border-slate-100 bg-slate-50 cursor-pointer flex items-center justify-center relative p-1"
+              onclick="
+                openModal(
+                  'img',
+                  './FASE 2/OFERTAS-LIZ.png',
+                  'CATÁLOGO INTELIGENTE DE PLANES — 24 planes vigentes y filtro por municipio y edificio',
+                )
+              "
+            >
+              <img
+                src="./FASE 2/OFERTAS-LIZ.png"
+                alt="Catálogo de Planes Liz"
+                class="w-full h-full max-h-full object-contain group-hover:scale-[1.03] transition duration-300"
+                loading="lazy"
+              />
+            </div>
+            <div
+              class="bg-slate-50 p-1.5 rounded border border-slate-200 shrink-0 flex items-center justify-between gap-2 mt-1.5"
+            >
+              <div class="min-w-0 flex-1">
+                <span
+                  class="text-[10.5px] font-extrabold text-[#B91C1C] uppercase tracking-wide block truncate"
+                  >CATÁLOGO INTELIGENTE DE PLANES</span
+                >
+                <p class="text-[11px] text-slate-700 leading-tight truncate">
+                  Control de 24 planes vigentes; el sistema muestra solo las
+                  ofertas que aplican al edificio del cliente.
+                </p>
+              </div>
+              <button
+                onclick="
+                  openModal(
+                    'img',
+                    './FASE 2/OFERTAS-LIZ.png',
+                    'CATÁLOGO INTELIGENTE DE PLANES',
+                  )
+                "
+                class="inline-flex items-center gap-1 bg-[#DA291C] hover:bg-[#B91C1C] text-white text-[10px] font-bold px-2 py-1 rounded shrink-0 shadow-sm transition"
+              >
+                <span>🔍 Ver captura completa</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Tarjeta 3: ENRUTAMIENTO A SUPERVISORES -->
+          <div
+            class="group bg-white border border-slate-200 rounded-xl p-2 flex flex-col justify-between overflow-hidden shadow-sm hover:border-red-500 transition duration-200"
+          >
+            <div
+              class="flex-1 min-h-0 overflow-hidden rounded border border-slate-100 bg-slate-50 cursor-pointer flex items-center justify-center relative p-1"
+              onclick="
+                openModal(
+                  'img',
+                  './FASE 2/SUPERVISORES-LIZ.png',
+                  'ENRUTAMIENTO A SUPERVISORES — Envío inmediato de datos al WhatsApp del supervisor',
+                )
+              "
+            >
+              <img
+                src="./FASE 2/SUPERVISORES-LIZ.png"
+                alt="Supervisores Liz"
+                class="w-full h-full max-h-full object-contain group-hover:scale-[1.03] transition duration-300"
+                loading="lazy"
+              />
+            </div>
+            <div
+              class="bg-slate-50 p-1.5 rounded border border-slate-200 shrink-0 flex items-center justify-between gap-2 mt-1.5"
+            >
+              <div class="min-w-0 flex-1">
+                <span
+                  class="text-[10.5px] font-extrabold text-[#B91C1C] uppercase tracking-wide block truncate"
+                  >ENRUTAMIENTO A SUPERVISORES</span
+                >
+                <p class="text-[11px] text-slate-700 leading-tight truncate">
+                  Asignación por territorio que envía de inmediato los datos del
+                  cliente al WhatsApp del supervisor.
+                </p>
+              </div>
+              <button
+                onclick="
+                  openModal(
+                    'img',
+                    './FASE 2/SUPERVISORES-LIZ.png',
+                    'ENRUTAMIENTO A SUPERVISORES',
+                  )
+                "
+                class="inline-flex items-center gap-1 bg-[#DA291C] hover:bg-[#B91C1C] text-white text-[10px] font-bold px-2 py-1 rounded shrink-0 shadow-sm transition"
+              >
+                <span>🔍 Ver captura completa</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Tarjeta 4: REGISTRO DE VENTAS Y CLIENTES -->
+          <div
+            class="group bg-white border border-slate-200 rounded-xl p-2 flex flex-col justify-between overflow-hidden shadow-sm hover:border-red-500 transition duration-200"
+          >
+            <div
+              class="flex-1 min-h-0 overflow-hidden rounded border border-slate-100 bg-slate-50 cursor-pointer flex items-center justify-center relative p-1"
+              onclick="
+                openModal(
+                  'img',
+                  './FASE 2/VENTAS-LIZ.png',
+                  'REGISTRO DE VENTAS Y CLIENTES — Seguimiento en vivo de consultas y ventas listas para instalar',
+                )
+              "
+            >
+              <img
+                src="./FASE 2/VENTAS-LIZ.png"
+                alt="Registro de Ventas Liz"
+                class="w-full h-full max-h-full object-contain group-hover:scale-[1.03] transition duration-300"
+                loading="lazy"
+              />
+            </div>
+            <div
+              class="bg-slate-50 p-1.5 rounded border border-slate-200 shrink-0 flex items-center justify-between gap-2 mt-1.5"
+            >
+              <div class="min-w-0 flex-1">
+                <span
+                  class="text-[10.5px] font-extrabold text-[#B91C1C] uppercase tracking-wide block truncate"
+                  >REGISTRO DE VENTAS Y CLIENTES</span
+                >
+                <p class="text-[11px] text-slate-700 leading-tight truncate">
+                  Seguimiento en tiempo real de consultas y ventas listas para
+                  instalar, protegiendo datos personales.
+                </p>
+              </div>
+              <button
+                onclick="
+                  openModal(
+                    'img',
+                    './FASE 2/VENTAS-LIZ.png',
+                    'REGISTRO DE VENTAS Y CLIENTES',
+                  )
+                "
+                class="inline-flex items-center gap-1 bg-[#DA291C] hover:bg-[#B91C1C] text-white text-[10px] font-bold px-2 py-1 rounded shrink-0 shadow-sm transition"
+              >
+                <span>🔍 Ver captura completa</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ──────────────────────────────────────────────────────────
+         SLIDE 4: FASE 3 - LIZ EN TERRENO Y DEMO EN SALA (QR & CAPTURAS MAXIMIZADAS)
+    ────────────────────────────────────────────────────────── -->
+      <section
+        class="slide h-screen w-screen overflow-hidden flex flex-col p-6 pt-16 bg-white"
+        id="slide-4"
+      >
+        <!-- Header -->
+        <div class="border-b border-slate-200 pb-2 mb-2 shrink-0">
+          <div class="flex items-center gap-2 mb-0.5">
+            <span
+              class="px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-[#DA291C] text-white"
+              >FASE 3</span
+            >
+            <h2
+              class="text-xl md:text-2xl font-black text-slate-900 tracking-tight"
+            >
+              Liz en Terreno y Prueba Interactiva en Sala
+            </h2>
+          </div>
+          <p class="text-xs text-slate-600 leading-snug">
+            Despliegue en copropiedades y demostración interactiva del flujo
+            transaccional.
+          </p>
+        </div>
+
+        <!-- Layout en 2 columnas balanceadas (col-span-5 y col-span-7) -->
+        <div class="flex-1 min-h-0 grid grid-cols-12 gap-4 overflow-hidden">
+          <!-- Columna Izquierda (col-span-5): Hero QR (h-[28vh]) + Video Demo -->
+          <div
+            class="col-span-5 flex flex-col gap-2.5 justify-between min-h-0 overflow-hidden"
+          >
+            <!-- Tarjeta Hero QR -->
+            <div
+              class="border-2 border-red-200 bg-red-50/40 rounded-xl p-2.5 flex flex-col items-center justify-between shadow-sm shrink-0"
+            >
+              <div class="text-center mb-1">
+                <span
+                  class="text-[11px] font-extrabold text-[#B91C1C] uppercase tracking-wider"
+                  >PRUEBA EN VIVO CON SU CELULAR</span
+                >
+                <p class="text-xs font-semibold text-slate-800">
+                  Enfoque su cámara aquí ➔ Escoja un plan ➔ Valide la respuesta
+                  en su WhatsApp
+                </p>
+              </div>
+
+              <!-- QR aumentado a h-[28vh] -->
+              <div
+                class="bg-white p-2 rounded-lg border border-red-100 shadow-inner cursor-pointer"
+                onclick="
+                  openModal(
+                    'img',
+                    './FASE 3/QR-LIZ.jpeg',
+                    'Código QR Oficial Liz — Regional 5',
+                  )
+                "
+              >
+                <img
+                  src="./FASE 3/QR-LIZ.jpeg"
+                  alt="QR Liz Regional 5"
+                  class="h-[28vh] object-contain mx-auto rounded-lg"
+                  loading="lazy"
+                />
+              </div>
+
+              <div class="mt-1.5 text-center">
+                <span
+                  class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#25D366] text-white shadow-sm"
+                >
+                  <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                    <path
+                      d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.072-2.129-.533-1.838-.775-3.033-2.648-3.125-2.772-.092-.124-.749-.997-.749-1.902 0-.904.474-1.349.643-1.533.169-.184.368-.23.491-.23.123 0 .245.002.353.007.113.005.263-.043.412.316.154.37.525 1.282.57 1.375.046.093.077.201.016.324-.061.123-.092.2-.184.308-.092.107-.194.24-.277.322-.092.092-.189.192-.081.378.107.185.478.788 1.025 1.275.706.628 1.302.822 1.487.914.184.092.292.077.4-.046.108-.123.461-.538.584-.723.123-.185.246-.154.415-.092.17.061 1.077.508 1.262.6.184.092.308.138.354.215.046.077.046.446-.098.851z"
+                    />
+                  </svg>
+                  Línea verificada +57 314 3363627
+                </span>
+              </div>
+            </div>
+
+            <!-- Tarjeta Demo Video -->
+            <div
+              class="bg-slate-50 border border-slate-200 rounded-xl p-2.5 flex flex-col justify-between flex-1 min-h-0 overflow-hidden shadow-sm"
+            >
+              <div
+                class="text-[10px] font-extrabold text-[#B91C1C] uppercase tracking-wider mb-1 shrink-0"
+              >
+                DEMO EN VIVO: INTERACCIÓN EN RECEPCIÓN
+              </div>
+              <div
+                class="flex-1 min-h-0 flex items-center justify-center bg-black rounded-lg overflow-hidden relative cursor-pointer"
+                onclick="
+                  openModal(
+                    'video',
+                    './FASE 3/PRESENTACION-LIZ.mp4',
+                    'DEMO EN VIVO: Interacción de residente escaneando en recepción.',
+                  )
+                "
+              >
+                <video
+                  controls
+                  preload="metadata"
+                  class="w-full max-h-[22vh] rounded-lg bg-black object-contain shadow-sm"
+                >
+                  <source
+                    src="./FASE 3/PRESENTACION-LIZ.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+                <div
+                  class="video-print-fallback hidden w-full h-full border-2 border-dashed border-slate-300 rounded-lg p-3 flex-col items-center justify-center text-center bg-slate-100"
+                >
+                  <span class="text-xs font-bold text-slate-800 uppercase"
+                    >Video: PRESENTACION-LIZ.mp4</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Columna Derecha (col-span-7): Flujo de Usuario con capturas w-full h-full object-contain -->
+          <div
+            class="col-span-7 flex flex-col justify-between min-h-0 overflow-hidden bg-slate-50 border border-slate-200 rounded-xl p-3 shadow-sm"
+          >
+            <div
+              class="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider mb-2 shrink-0 flex items-center justify-between"
+            >
+              <span>SECUENCIA DEL FLUJO DE USUARIO EN WHATSAPP</span>
+              <span class="text-[10px] text-slate-500 font-normal"
+                >Clic en la captura para ver detalles</span
+              >
+            </div>
+
+            <!-- Grilla horizontal de las 3 capturas aprovechando el alto completo -->
+            <div
+              class="grid grid-cols-3 gap-2.5 flex-1 min-h-0 overflow-hidden"
+            >
+              <!-- Paso 1 -->
+              <div
+                class="flex flex-col h-full overflow-hidden bg-white rounded-lg border border-slate-200 p-2 shadow-sm"
+              >
+                <div
+                  class="flex-1 min-h-0 flex items-center justify-center bg-slate-900 rounded overflow-hidden cursor-pointer"
+                  onclick="
+                    openModal(
+                      'img',
+                      './FASE 3/INTERACCION1-LIZ.png',
+                      'Paso 1 — Menú inicial y bienvenida institucional',
+                    )
+                  "
+                >
+                  <img
+                    src="./FASE 3/INTERACCION1-LIZ.png"
+                    alt="Interacción 1"
+                    class="w-full h-full object-contain"
+                    loading="lazy"
+                  />
+                </div>
+                <div class="mt-1.5 text-center shrink-0">
+                  <span
+                    class="text-[10px] font-bold text-[#B91C1C] uppercase block"
+                    >PASO 1</span
+                  >
+                  <p
+                    class="text-[11px] font-semibold text-slate-700 leading-tight"
+                  >
+                    Menú inicial y bienvenida institucional
+                  </p>
+                </div>
+              </div>
+
+              <!-- Paso 2 -->
+              <div
+                class="flex flex-col h-full overflow-hidden bg-white rounded-lg border border-slate-200 p-2 shadow-sm"
+              >
+                <div
+                  class="flex-1 min-h-0 flex items-center justify-center bg-slate-900 rounded overflow-hidden cursor-pointer"
+                  onclick="
+                    openModal(
+                      'img',
+                      './FASE 3/INTERACCION2-LIZ.png',
+                      'Paso 2 — Despliegue de ofertas por distrito',
+                    )
+                  "
+                >
+                  <img
+                    src="./FASE 3/INTERACCION2-LIZ.png"
+                    alt="Interacción 2"
+                    class="w-full h-full object-contain"
+                    loading="lazy"
+                  />
+                </div>
+                <div class="mt-1.5 text-center shrink-0">
+                  <span
+                    class="text-[10px] font-bold text-[#B91C1C] uppercase block"
+                    >PASO 2</span
+                  >
+                  <p
+                    class="text-[11px] font-semibold text-slate-700 leading-tight"
+                  >
+                    Despliegue de ofertas por distrito
+                  </p>
+                </div>
+              </div>
+
+              <!-- Paso 3 -->
+              <div
+                class="flex flex-col h-full overflow-hidden bg-white rounded-lg border border-slate-200 p-2 shadow-sm"
+              >
+                <div
+                  class="flex-1 min-h-0 flex items-center justify-center bg-slate-900 rounded overflow-hidden cursor-pointer"
+                  onclick="
+                    openModal(
+                      'img',
+                      './FASE 3/INTERACCION3-LIZ.png',
+                      'Paso 3 — Captura de datos y radicación',
+                    )
+                  "
+                >
+                  <img
+                    src="./FASE 3/INTERACCION3-LIZ.png"
+                    alt="Interacción 3"
+                    class="w-full h-full object-contain"
+                    loading="lazy"
+                  />
+                </div>
+                <div class="mt-1.5 text-center shrink-0">
+                  <span
+                    class="text-[10px] font-bold text-[#B91C1C] uppercase block"
+                    >PASO 3</span
+                  >
+                  <p
+                    class="text-[11px] font-semibold text-slate-700 leading-tight"
+                  >
+                    Captura de datos y radicación
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Barra inferior obligatoria: Blindaje Legal -->
+            <div
+              class="bg-white border-l-4 border-l-[#DA291C] border border-slate-200 p-2 rounded-lg mt-2.5 shrink-0 flex items-center gap-2"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-4 h-4 text-[#B91C1C] shrink-0"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+              <p class="text-xs text-slate-700 leading-snug">
+                <strong class="text-slate-900 font-bold"
+                  >Blindaje Legal:</strong
+                >
+                Validación de identidad delegada a llamada telefónica del asesor
+                para estricto cumplimiento de Habeas Data (Ley 1581 de 2012).
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ──────────────────────────────────────────────────────────
          SLIDE 5: FASE 4 - PREMIACIÓN Y FIDELIZACIÓN A COPROPIEDADES
     ────────────────────────────────────────────────────────── -->
-    <section class="slide h-screen w-screen overflow-hidden flex flex-col p-6 pt-16 bg-white" id="slide-5">
-      <!-- Header -->
-      <div class="border-b border-slate-200 pb-2 mb-2 shrink-0">
-        <div class="flex items-center gap-2 mb-1">
-          <span class="px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-[#DA291C] text-white">FASE 4</span>
-          <h2 class="text-xl md:text-2xl font-black text-slate-900 tracking-tight">Premiación y Fidelización a Copropiedades</h2>
-        </div>
-        <!-- Franja destacada superior -->
-        <div class="bg-red-50/70 border border-red-200 rounded-lg p-2.5 flex items-center gap-2">
-          <span class="px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-[#B91C1C] text-white shrink-0">ESTRATEGIA</span>
-          <p class="text-xs text-slate-800 leading-snug">
-            <strong class="font-bold text-slate-900">Estrategia de Blindaje:</strong> La dotación comunal garantiza la permanencia exclusiva del material publicitario, elimina el retiro de habladores por parte de administraciones y bloquea la entrada de competidores.
-          </p>
-        </div>
-      </div>
-
-      <!-- Grilla horizontal de 4 fotos en una sola fila -->
-      <div class="flex-1 min-h-0 grid grid-cols-4 gap-4 mt-1 overflow-hidden">
-        <!-- Foto 1 -->
-        <div class="flex flex-col h-full overflow-hidden bg-slate-50 border border-slate-200 rounded-xl p-2 shadow-sm hover:border-red-500 transition">
-          <div class="flex-1 min-h-0 overflow-hidden rounded-lg bg-slate-100 cursor-pointer" onclick="openModal('img', './FASE 4/ADMIN2-LIZ.jpeg', 'ADMIN2: Entrega protocolaria a la administración.')">
-            <img src="./FASE 4/ADMIN2-LIZ.jpeg" alt="ADMIN2" class="h-[48vh] w-full object-cover rounded-lg shadow cursor-pointer hover:scale-105 transition duration-300" loading="lazy" />
+      <section
+        class="slide h-screen w-screen overflow-hidden flex flex-col p-6 pt-16 bg-white"
+        id="slide-5"
+      >
+        <!-- Header -->
+        <div class="border-b border-slate-200 pb-2 mb-2 shrink-0">
+          <div class="flex items-center gap-2 mb-1">
+            <span
+              class="px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-[#DA291C] text-white"
+              >FASE 4</span
+            >
+            <h2
+              class="text-xl md:text-2xl font-black text-slate-900 tracking-tight"
+            >
+              Premiación y Fidelización a Copropiedades
+            </h2>
           </div>
-          <div class="mt-2 text-center p-1 shrink-0">
-            <span class="text-[10px] font-bold text-[#B91C1C] uppercase block">ENTREGA PROTOCOLARIA</span>
-            <p class="text-xs font-semibold text-slate-800 leading-tight mt-0.5">ADMIN2: Entrega protocolaria a la administración.</p>
-          </div>
-        </div>
-
-        <!-- Foto 2 -->
-        <div class="flex flex-col h-full overflow-hidden bg-slate-50 border border-slate-200 rounded-xl p-2 shadow-sm hover:border-red-500 transition">
-          <div class="flex-1 min-h-0 overflow-hidden rounded-lg bg-slate-100 cursor-pointer" onclick="openModal('img', './FASE 4/PREMIO1-LIZ.jpeg', 'PREMIO1: Dotación de silletería y hablador POP.')">
-            <img src="./FASE 4/PREMIO1-LIZ.jpeg" alt="PREMIO1" class="h-[48vh] w-full object-cover rounded-lg shadow cursor-pointer hover:scale-105 transition duration-300" loading="lazy" />
-          </div>
-          <div class="mt-2 text-center p-1 shrink-0">
-            <span class="text-[10px] font-bold text-[#B91C1C] uppercase block">SILLETERÍA COMUNAL</span>
-            <p class="text-xs font-semibold text-slate-800 leading-tight mt-0.5">PREMIO1: Dotación de silletería y hablador POP.</p>
+          <!-- Franja destacada superior -->
+          <div
+            class="bg-red-50/70 border border-red-200 rounded-lg p-2 flex items-center gap-2"
+          >
+            <span
+              class="px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-[#B91C1C] text-white shrink-0"
+              >ESTRATEGIA</span
+            >
+            <p class="text-xs text-slate-800 leading-snug">
+              <strong class="font-bold text-slate-900"
+                >Estrategia de Blindaje:</strong
+              >
+              La dotación comunal garantiza la permanencia exclusiva del
+              material publicitario, elimina el retiro de habladores por parte
+              de administraciones y bloquea la entrada de competidores.
+            </p>
           </div>
         </div>
 
-        <!-- Foto 3 -->
-        <div class="flex flex-col h-full overflow-hidden bg-slate-50 border border-slate-200 rounded-xl p-2 shadow-sm hover:border-red-500 transition">
-          <div class="flex-1 min-h-0 overflow-hidden rounded-lg bg-slate-100 cursor-pointer" onclick="openModal('img', './FASE 4/PREMIO2-LIZ.jpeg', 'PREMIO2: Mobiliario entregado a junta de copropietarios.')">
-            <img src="./FASE 4/PREMIO2-LIZ.jpeg" alt="PREMIO2" class="h-[48vh] w-full object-cover rounded-lg shadow cursor-pointer hover:scale-105 transition duration-300" loading="lazy" />
+        <!-- Grilla horizontal de 4 fotos aprovechando todo el alto disponible -->
+        <div
+          class="flex-1 min-h-0 grid grid-cols-4 gap-3.5 mt-1 overflow-hidden"
+        >
+          <!-- Foto 1 -->
+          <div
+            class="flex flex-col h-full overflow-hidden bg-slate-50 border border-slate-200 rounded-xl p-2 shadow-sm hover:border-red-500 transition"
+          >
+            <div
+              class="flex-1 min-h-0 overflow-hidden rounded-lg bg-slate-100 cursor-pointer relative group"
+              onclick="
+                openModal(
+                  'img',
+                  './FASE 4/ADMIN2-LIZ.jpeg',
+                  'ADMIN2: Entrega protocolaria a la administración.',
+                )
+              "
+            >
+              <img
+                src="./FASE 4/ADMIN2-LIZ.jpeg"
+                alt="ADMIN2"
+                class="w-full h-full object-cover rounded-lg shadow cursor-pointer group-hover:scale-105 transition duration-300"
+                loading="lazy"
+              />
+              <span
+                class="absolute top-1.5 right-1.5 bg-black/75 backdrop-blur-sm text-[10px] font-bold text-white px-1.5 py-0.5 rounded shadow z-10 pointer-events-none"
+              >
+                🔍 Ampliar
+              </span>
+            </div>
+            <div class="mt-1.5 text-center p-0.5 shrink-0">
+              <span class="text-[10px] font-bold text-[#B91C1C] uppercase block"
+                >ENTREGA PROTOCOLARIA</span
+              >
+              <p
+                class="text-xs font-semibold text-slate-800 leading-tight mt-0.5"
+              >
+                Entrega protocolaria a la administración.
+              </p>
+            </div>
           </div>
-          <div class="mt-2 text-center p-1 shrink-0">
-            <span class="text-[10px] font-bold text-[#B91C1C] uppercase block">MOBILIARIO ÁREAS COMUNES</span>
-            <p class="text-xs font-semibold text-slate-800 leading-tight mt-0.5">PREMIO2: Mobiliario entregado a junta de copropietarios.</p>
+
+          <!-- Foto 2 -->
+          <div
+            class="flex flex-col h-full overflow-hidden bg-slate-50 border border-slate-200 rounded-xl p-2 shadow-sm hover:border-red-500 transition"
+          >
+            <div
+              class="flex-1 min-h-0 overflow-hidden rounded-lg bg-slate-100 cursor-pointer relative group"
+              onclick="
+                openModal(
+                  'img',
+                  './FASE 4/PREMIO1-LIZ.jpeg',
+                  'PREMIO1: Dotación de silletería y hablador POP.',
+                )
+              "
+            >
+              <img
+                src="./FASE 4/PREMIO1-LIZ.jpeg"
+                alt="PREMIO1"
+                class="w-full h-full object-cover rounded-lg shadow cursor-pointer group-hover:scale-105 transition duration-300"
+                loading="lazy"
+              />
+              <span
+                class="absolute top-1.5 right-1.5 bg-black/75 backdrop-blur-sm text-[10px] font-bold text-white px-1.5 py-0.5 rounded shadow z-10 pointer-events-none"
+              >
+                🔍 Ampliar
+              </span>
+            </div>
+            <div class="mt-1.5 text-center p-0.5 shrink-0">
+              <span class="text-[10px] font-bold text-[#B91C1C] uppercase block"
+                >SILLETERÍA COMUNAL</span
+              >
+              <p
+                class="text-xs font-semibold text-slate-800 leading-tight mt-0.5"
+              >
+                Dotación de silletería y hablador POP.
+              </p>
+            </div>
+          </div>
+
+          <!-- Foto 3 -->
+          <div
+            class="flex flex-col h-full overflow-hidden bg-slate-50 border border-slate-200 rounded-xl p-2 shadow-sm hover:border-red-500 transition"
+          >
+            <div
+              class="flex-1 min-h-0 overflow-hidden rounded-lg bg-slate-100 cursor-pointer relative group"
+              onclick="
+                openModal(
+                  'img',
+                  './FASE 4/PREMIO2-LIZ.jpeg',
+                  'PREMIO2: Mobiliario entregado a junta de copropietarios.',
+                )
+              "
+            >
+              <img
+                src="./FASE 4/PREMIO2-LIZ.jpeg"
+                alt="PREMIO2"
+                class="w-full h-full object-cover rounded-lg shadow cursor-pointer group-hover:scale-105 transition duration-300"
+                loading="lazy"
+              />
+              <span
+                class="absolute top-1.5 right-1.5 bg-black/75 backdrop-blur-sm text-[10px] font-bold text-white px-1.5 py-0.5 rounded shadow z-10 pointer-events-none"
+              >
+                🔍 Ampliar
+              </span>
+            </div>
+            <div class="mt-1.5 text-center p-0.5 shrink-0">
+              <span class="text-[10px] font-bold text-[#B91C1C] uppercase block"
+                >MOBILIARIO ÁREAS COMUNES</span
+              >
+              <p
+                class="text-xs font-semibold text-slate-800 leading-tight mt-0.5"
+              >
+                Mobiliario entregado a junta de copropietarios.
+              </p>
+            </div>
+          </div>
+
+          <!-- Foto 4 -->
+          <div
+            class="flex flex-col h-full overflow-hidden bg-slate-50 border border-slate-200 rounded-xl p-2 shadow-sm hover:border-red-500 transition"
+          >
+            <div
+              class="flex-1 min-h-0 overflow-hidden rounded-lg bg-slate-100 cursor-pointer relative group"
+              onclick="
+                openModal(
+                  'img',
+                  './FASE 4/PREMIO3-LIZ.jpeg',
+                  'PREMIO3: Verificación comunal y blindaje de marca.',
+                )
+              "
+            >
+              <img
+                src="./FASE 4/PREMIO3-LIZ.jpeg"
+                alt="PREMIO3"
+                class="w-full h-full object-cover rounded-lg shadow cursor-pointer group-hover:scale-105 transition duration-300"
+                loading="lazy"
+              />
+              <span
+                class="absolute top-1.5 right-1.5 bg-black/75 backdrop-blur-sm text-[10px] font-bold text-white px-1.5 py-0.5 rounded shadow z-10 pointer-events-none"
+              >
+                🔍 Ampliar
+              </span>
+            </div>
+            <div class="mt-1.5 text-center p-0.5 shrink-0">
+              <span class="text-[10px] font-bold text-[#B91C1C] uppercase block"
+                >VERIFICACIÓN Y BLINDAJE</span
+              >
+              <p
+                class="text-xs font-semibold text-slate-800 leading-tight mt-0.5"
+              >
+                Verificación comunal y blindaje de marca.
+              </p>
+            </div>
           </div>
         </div>
+      </section>
 
-        <!-- Foto 4 -->
-        <div class="flex flex-col h-full overflow-hidden bg-slate-50 border border-slate-200 rounded-xl p-2 shadow-sm hover:border-red-500 transition">
-          <div class="flex-1 min-h-0 overflow-hidden rounded-lg bg-slate-100 cursor-pointer" onclick="openModal('img', './FASE 4/PREMIO3-LIZ.jpeg', 'PREMIO3: Verificación comunal y blindaje de marca.')">
-            <img src="./FASE 4/PREMIO3-LIZ.jpeg" alt="PREMIO3" class="h-[48vh] w-full object-cover rounded-lg shadow cursor-pointer hover:scale-105 transition duration-300" loading="lazy" />
-          </div>
-          <div class="mt-2 text-center p-1 shrink-0">
-            <span class="text-[10px] font-bold text-[#B91C1C] uppercase block">VERIFICACIÓN Y BLINDAJE</span>
-            <p class="text-xs font-semibold text-slate-800 leading-tight mt-0.5">PREMIO3: Verificación comunal y blindaje de marca.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- ──────────────────────────────────────────────────────────
-         SLIDE 6: CIERRE EJECUTIVO Y ESCALABILIDAD NACIONAL (Fondo oscuro #0F172A)
+      <!-- ──────────────────────────────────────────────────────────
+         SLIDE 6: CIERRE EJECUTIVO, PRESUPUESTO OPERATIVO Y ESCALABILIDAD
     ────────────────────────────────────────────────────────── -->
-    <section class="slide h-screen w-screen overflow-hidden flex flex-col p-6 pt-16 bg-[#0F172A] text-white justify-between" id="slide-6">
-      <!-- Encabezado -->
-      <div class="border-b border-slate-800 pb-2.5 shrink-0 flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <span class="px-2.5 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-[#DA291C] text-white">SÍNTESIS</span>
-          <span class="text-xs font-bold text-slate-400 tracking-wider uppercase">ESCALABILIDAD Y TRANSFERENCIA DEL MODELO</span>
-        </div>
-        <span class="text-xs font-bold text-[#DA291C] tracking-wide">CLARO COLOMBIA • REGIONAL 5</span>
-      </div>
-
-      <!-- Contenido Principal -->
-      <div class="flex-1 min-h-0 overflow-hidden flex flex-col justify-around py-2 gap-4">
-        <!-- Titular y Subtítulo -->
-        <div class="text-center max-w-4xl mx-auto space-y-1 shrink-0">
-          <h2 class="text-2xl md:text-4xl font-black text-white uppercase tracking-tight">
-            Regional 5 piloteó el modelo. <span class="text-[#DA291C]">El siguiente paso es nacional.</span>
-          </h2>
-          <p class="text-xs md:text-sm text-slate-300 font-medium max-w-2xl mx-auto">
-            La Regional 5 consolidó el piloto del Canal PH con tecnología propia y resultados en campo, lista para transferir el modelo.
-          </p>
-        </div>
-
-        <!-- 3 Tarjetas cuantitativas intermedias -->
-        <div class="grid grid-cols-3 gap-4 max-w-5xl w-full mx-auto shrink-0">
-          <!-- Tarjeta 1 -->
-          <div class="bg-slate-800/80 border border-slate-700 rounded-xl p-4 shadow-lg backdrop-blur-sm flex flex-col justify-between">
-            <div>
-              <div class="text-[10px] font-extrabold text-[#DA291C] uppercase tracking-wider mb-1">IMPACTO FINANCIERO</div>
-              <h3 class="text-base font-black text-white mb-1.5">Eficiencia Marginal</h3>
-              <p class="text-xs text-slate-300 leading-relaxed">
-                Costo por venta de $483 a $1.008 COP en consumo de nube y Meta, representando menos del 1,4% de la primera factura.
-              </p>
-            </div>
-            <div class="mt-3 pt-2 border-t border-slate-700/60 flex items-center justify-between text-[11px] font-bold text-slate-400">
-              <span>Cero licencias SaaS</span>
-              <span class="text-[#DA291C]">&lt; 1,4% CPA</span>
-            </div>
+      <section
+        class="slide h-screen w-screen overflow-hidden flex flex-col p-6 pt-16 bg-[#0F172A] text-white justify-between"
+        id="slide-6"
+      >
+        <!-- Encabezado -->
+        <div
+          class="border-b border-slate-800 pb-2.5 shrink-0 flex items-center justify-between"
+        >
+          <div class="flex items-center gap-2">
+            <span
+              class="px-2.5 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-[#DA291C] text-white"
+              >SÍNTESIS</span
+            >
+            <span
+              class="text-xs font-bold text-slate-400 tracking-wider uppercase"
+              >PRESUPUESTO OPERATIVO REAL Y TRANSFERENCIA</span
+            >
           </div>
-
-          <!-- Tarjeta 2 -->
-          <div class="bg-slate-800/80 border border-slate-700 rounded-xl p-4 shadow-lg backdrop-blur-sm flex flex-col justify-between">
-            <div>
-              <div class="text-[10px] font-extrabold text-[#DA291C] uppercase tracking-wider mb-1">CONTROL EN TIEMPO REAL</div>
-              <h3 class="text-base font-black text-white mb-1.5">Gobernanza y Control</h3>
-              <p class="text-xs text-slate-300 leading-relaxed">
-                Control y trazabilidad absoluta de ventas, prospectos y comisiones en tiempo real sin costos recurrentes de software externo.
-              </p>
-            </div>
-            <div class="mt-3 pt-2 border-t border-slate-700/60 flex items-center justify-between text-[11px] font-bold text-slate-400">
-              <span>Directo a WhatsApp</span>
-              <span class="text-white">Sheets Live Sync</span>
-            </div>
-          </div>
-
-          <!-- Tarjeta 3 -->
-          <div class="bg-slate-800/80 border border-slate-700 rounded-xl p-4 shadow-lg backdrop-blur-sm flex flex-col justify-between">
-            <div>
-              <div class="text-[10px] font-extrabold text-[#DA291C] uppercase tracking-wider mb-1">EXPANSIÓN INMEDIATA</div>
-              <h3 class="text-base font-black text-white mb-1.5">Modelo Replicable</h3>
-              <p class="text-xs text-slate-300 leading-relaxed">
-                Arquitectura modular lista para replicarse de forma independiente en las 5 regionales de Claro con líneas dedicadas y autonomía de catálogo.
-              </p>
-            </div>
-            <div class="mt-3 pt-2 border-t border-slate-700/60 flex items-center justify-between text-[11px] font-bold text-slate-400">
-              <span>5 Regionales</span>
-              <span class="text-white">Autonomía Total</span>
-            </div>
-          </div>
+          <span class="text-xs font-bold text-[#DA291C] tracking-wide"
+            >CLARO COLOMBIA • REGIONAL 5</span
+          >
         </div>
 
-        <!-- Franja inferior de hoja de ruta: 3 cajas de ruta conectadas -->
-        <div class="max-w-5xl w-full mx-auto shrink-0">
-          <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">
-            HOJA DE RUTA PARA TRANSFERENCIA Y MASIFICACIÓN NACIONAL
+        <!-- Contenido Principal -->
+        <div
+          class="flex-1 min-h-0 overflow-hidden flex flex-col justify-around py-2 gap-4"
+        >
+          <!-- Titular y Subtítulo -->
+          <div class="text-center max-w-4xl mx-auto space-y-1 shrink-0">
+            <h2
+              class="text-2xl md:text-4xl font-black text-white uppercase tracking-tight"
+            >
+              Regional 5 desarrolló el modelo.
+              <span class="text-[#DA291C]">El siguiente paso es nacional.</span>
+            </h2>
+            <p
+              class="text-xs md:text-sm text-slate-300 font-medium max-w-2xl mx-auto"
+            >
+              La Regional 5 consolidó el modelo con herramientas propias en
+              campo, lista para transferirlo a nivel nacional.
+            </p>
           </div>
-          <div class="grid grid-cols-3 gap-3">
-            <div class="bg-slate-900/90 border border-slate-700/80 rounded-xl p-3 flex flex-col justify-between relative shadow">
-              <div class="flex items-center gap-2 mb-1">
-                <span class="w-6 h-6 rounded-full bg-[#DA291C] text-white font-black text-xs flex items-center justify-center shrink-0">1</span>
-                <span class="text-xs font-bold text-white uppercase">Regional 5</span>
+
+          <!-- 3 Tarjetas de Presupuesto Operativo Real -->
+          <div class="grid grid-cols-3 gap-4 max-w-5xl w-full mx-auto shrink-0">
+            <!-- Tarjeta 1: Presupuesto Fijo de Servidor -->
+            <div
+              class="bg-slate-800/90 border border-slate-700 rounded-xl p-4 shadow-lg backdrop-blur-sm flex flex-col justify-between"
+            >
+              <div>
+                <div
+                  class="text-[10px] font-extrabold text-[#DA291C] uppercase tracking-wider mb-1"
+                >
+                  PRESUPUESTO FIJO DE SERVIDOR
+                </div>
+                <h3 class="text-base font-black text-white mb-1.5">
+                  &lt; $55.000 COP / mes
+                </h3>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                  Servidor en la nube 24/7 desde $27.900 COP/mes (plan anual)
+                  hasta $46.900 COP/mes, más dominio web (~$4.500 COP/mes).
+                  Costo fijo total inferior a $55.000 COP mensuales para toda la
+                  regional.
+                </p>
               </div>
-              <p class="text-xs text-slate-300 leading-snug">
-                Paso 1: Consolidación y masificación de habladores en los 8 distritos activos de Regional 5.
-              </p>
+              <div
+                class="mt-3 pt-2 border-t border-slate-700/60 flex items-center justify-between text-[11px] font-bold text-slate-400"
+              >
+                <span>Plan anual 24/7</span>
+                <span class="text-[#DA291C]">Costo Fijo Mínimo</span>
+              </div>
             </div>
 
-            <div class="bg-slate-900/90 border border-slate-700/80 rounded-xl p-3 flex flex-col justify-between relative shadow">
-              <div class="flex items-center gap-2 mb-1">
-                <span class="w-6 h-6 rounded-full bg-[#DA291C] text-white font-black text-xs flex items-center justify-center shrink-0">2</span>
-                <span class="text-xs font-bold text-white uppercase">Líneas Oficiales</span>
+            <!-- Tarjeta 2: Costo de Mensajería WhatsApp -->
+            <div
+              class="bg-slate-800/90 border border-slate-700 rounded-xl p-4 shadow-lg backdrop-blur-sm flex flex-col justify-between"
+            >
+              <div>
+                <div
+                  class="text-[10px] font-extrabold text-[#DA291C] uppercase tracking-wider mb-1"
+                >
+                  COSTO DE MENSAJERÍA WHATSAPP
+                </div>
+                <h3 class="text-base font-black text-white mb-1.5">
+                  1.000 atenciones GRATIS / mes
+                </h3>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                  Las primeras 1.000 atenciones del mes son GRATIS. A partir de
+                  la 1.001, cada atención cuesta entre $35 y $52 COP. Cerrar una
+                  venta efectiva cuesta menos de $1.000 COP en consumo.
+                </p>
               </div>
-              <p class="text-xs text-slate-300 leading-snug">
-                Paso 2: Habilitación de líneas oficiales independientes y parametrización de catálogos por regional.
-              </p>
+              <div
+                class="mt-3 pt-2 border-t border-slate-700/60 flex items-center justify-between text-[11px] font-bold text-slate-400"
+              >
+                <span>&lt; $1.008 COP / venta</span>
+                <span class="text-white">Tarifa Oficial Meta</span>
+              </div>
             </div>
 
-            <div class="bg-slate-900/90 border border-slate-700/80 rounded-xl p-3 flex flex-col justify-between relative shadow">
-              <div class="flex items-center gap-2 mb-1">
-                <span class="w-6 h-6 rounded-full bg-[#DA291C] text-white font-black text-xs flex items-center justify-center shrink-0">3</span>
-                <span class="text-xs font-bold text-white uppercase">Masificación</span>
+            <!-- Tarjeta 3: Ahorro por Desarrollo Propio -->
+            <div
+              class="bg-slate-800/90 border border-slate-700 rounded-xl p-4 shadow-lg backdrop-blur-sm flex flex-col justify-between"
+            >
+              <div>
+                <div
+                  class="text-[10px] font-extrabold text-[#DA291C] uppercase tracking-wider mb-1"
+                >
+                  AHORRO POR DESARROLLO PROPIO
+                </div>
+                <h3 class="text-base font-black text-white mb-1.5">
+                  $0 COP en Licencias Externas
+                </h3>
+                <p class="text-xs text-slate-300 leading-relaxed">
+                  $0 COP en licencias mensuales y $0 COP en cobros de agencias
+                  externas (ahorro superior a $25.000.000 COP en desarrollo y
+                  $2.500.000 COP/mes en mensualidades).
+                </p>
               </div>
-              <p class="text-xs text-slate-300 leading-snug">
-                Paso 3: Escalabilidad técnica nacional con cero costo de desarrollo adicional.
-              </p>
+              <div
+                class="mt-3 pt-2 border-t border-slate-700/60 flex items-center justify-between text-[11px] font-bold text-slate-400"
+              >
+                <span>Ahorro > $25M inicial</span>
+                <span class="text-white">> $2.5M/mes ahorro</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Franja inferior de hoja de ruta: 3 cajas de ruta conectadas -->
+          <div class="max-w-5xl w-full mx-auto shrink-0">
+            <div
+              class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center"
+            >
+              HOJA DE RUTA PARA TRANSFERENCIA Y MASIFICACIÓN NACIONAL
+            </div>
+            <div class="grid grid-cols-3 gap-3">
+              <div
+                class="bg-slate-900/90 border border-slate-700/80 rounded-xl p-3 flex flex-col justify-between relative shadow"
+              >
+                <div class="flex items-center gap-2 mb-1">
+                  <span
+                    class="w-6 h-6 rounded-full bg-[#DA291C] text-white font-black text-xs flex items-center justify-center shrink-0"
+                    >1</span
+                  >
+                  <span class="text-xs font-bold text-white uppercase"
+                    >Regional 5</span
+                  >
+                </div>
+                <p class="text-xs text-slate-300 leading-snug">
+                  Paso 1: Consolidación y masificación de habladores en los
+                  distritos activos de Regional 5.
+                </p>
+              </div>
+
+              <div
+                class="bg-slate-900/90 border border-slate-700/80 rounded-xl p-3 flex flex-col justify-between relative shadow"
+              >
+                <div class="flex items-center gap-2 mb-1">
+                  <span
+                    class="w-6 h-6 rounded-full bg-[#DA291C] text-white font-black text-xs flex items-center justify-center shrink-0"
+                    >2</span
+                  >
+                  <span class="text-xs font-bold text-white uppercase"
+                    >Líneas Oficiales</span
+                  >
+                </div>
+                <p class="text-xs text-slate-300 leading-snug">
+                  Paso 2: Habilitación de líneas oficiales independientes y
+                  parametrización de catálogos por regional.
+                </p>
+              </div>
+
+              <div
+                class="bg-slate-900/90 border border-slate-700/80 rounded-xl p-3 flex flex-col justify-between relative shadow"
+              >
+                <div class="flex items-center gap-2 mb-1">
+                  <span
+                    class="w-6 h-6 rounded-full bg-[#DA291C] text-white font-black text-xs flex items-center justify-center shrink-0"
+                    >3</span
+                  >
+                  <span class="text-xs font-bold text-white uppercase"
+                    >Masificación</span
+                  >
+                </div>
+                <p class="text-xs text-slate-300 leading-snug">
+                  Paso 3: Escalabilidad técnica nacional.
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Pie Cierre -->
-      <div class="border-t border-slate-800 pt-2 flex items-center justify-between text-[11px] text-slate-400">
-        <span>Proyecto Liz • Dirección Comercial Regional 5</span>
-        <span class="font-bold text-white">Listo para Despliegue Nacional en Claro Colombia</span>
-      </div>
-    </section>
+        <!-- Pie Cierre -->
+        <div
+          class="border-t border-slate-800 pt-2 flex items-center justify-between text-[11px] text-slate-400"
+        >
+          <span>Proyecto Liz • Dirección Comercial Regional 5</span>
+          <span class="font-bold text-white"
+            >Listo para Despliegue Nacional en Claro Colombia</span
+          >
+        </div>
+      </section>
+    </main>
 
-  </main>
-
-  <!-- ══════════════════════════════════════════════════════════
+    <!-- ══════════════════════════════════════════════════════════
        CONTROLES DE NAVEGACIÓN FLOTANTES (no-print)
   ══════════════════════════════════════════════════════════ -->
-  <button id="nav-prev-btn" class="nav-arrow-btn left-3 no-print" onclick="changeSlide(-1)" aria-label="Diapositiva anterior" title="Anterior (Flecha izquierda)">
-    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
-  </button>
+    <button
+      id="nav-prev-btn"
+      class="nav-arrow-btn left-3 no-print"
+      onclick="changeSlide(-1)"
+      aria-label="Diapositiva anterior"
+      title="Anterior (Flecha izquierda)"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-5 h-5"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+      >
+        <polyline points="15 18 9 12 15 6" />
+      </svg>
+    </button>
 
-  <button id="nav-next-btn" class="nav-arrow-btn right-3 no-print" onclick="changeSlide(1)" aria-label="Siguiente diapositiva" title="Siguiente (Flecha derecha)">
-    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-  </button>
+    <button
+      id="nav-next-btn"
+      class="nav-arrow-btn right-3 no-print"
+      onclick="changeSlide(1)"
+      aria-label="Siguiente diapositiva"
+      title="Siguiente (Flecha derecha)"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-5 h-5"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+      >
+        <polyline points="9 18 15 12 9 6" />
+      </svg>
+    </button>
 
-  <div id="dots-container" class="no-print">
-    <!-- Generado dinámicamente -->
-  </div>
+    <div id="dots-container" class="no-print">
+      <!-- Generado dinámicamente -->
+    </div>
 
-  <div id="slide-counter-badge" class="no-print">
-    Slide 1 de 6
-  </div>
+    <div id="slide-counter-badge" class="no-print">Slide 1 de 6</div>
 
-  <!-- ══════════════════════════════════════════════════════════
+    <!-- ══════════════════════════════════════════════════════════
        SISTEMA MODAL INTERACTIVO PANTALLA COMPLETA
   ══════════════════════════════════════════════════════════ -->
-  <div id="modal" class="fixed inset-0 bg-black/90 z-50 hidden flex-col items-center justify-center p-4" onclick="handleModalBackdropClick(event)">
-    <div class="relative max-w-5xl w-full max-h-[92vh] flex flex-col items-center bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl" onclick="event.stopPropagation()">
-      <!-- Botón de Cerrar -->
-      <button onclick="closeModal()" class="absolute top-3 right-3 z-20 w-9 h-9 rounded-full bg-black/60 hover:bg-black/90 text-white flex items-center justify-center border border-white/20 transition" title="Cerrar (ESC)">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
+    <div
+      id="modal"
+      class="fixed inset-0 bg-black/90 z-50 hidden flex-col items-center justify-center p-4"
+      onclick="handleModalBackdropClick(event)"
+    >
+      <div
+        class="relative max-w-5xl w-full max-h-[92vh] flex flex-col items-center bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl"
+        onclick="event.stopPropagation()"
+      >
+        <!-- Botón de Cerrar -->
+        <button
+          onclick="closeModal()"
+          class="absolute top-3 right-3 z-20 w-9 h-9 rounded-full bg-black/60 hover:bg-black/90 text-white flex items-center justify-center border border-white/20 transition"
+          title="Cerrar (ESC)"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+          >
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
 
-      <!-- Media Contenedor -->
-      <div id="modal-content" class="w-full flex-1 min-h-0 flex items-center justify-center bg-black p-2 overflow-hidden">
-        <!-- Imagen o Video inyectado dinámicamente -->
+        <!-- Media Contenedor -->
+        <div
+          id="modal-content"
+          class="w-full flex-1 min-h-0 flex items-center justify-center bg-black p-2 overflow-hidden"
+        >
+          <!-- Imagen o Video inyectado dinámicamente -->
+        </div>
+
+        <!-- Pie / Caption del Modal -->
+        <div
+          id="modal-caption"
+          class="w-full py-2.5 px-4 bg-slate-900 border-t border-slate-800 text-center text-xs text-slate-200 font-medium"
+        ></div>
       </div>
-
-      <!-- Pie / Caption del Modal -->
-      <div id="modal-caption" class="w-full py-2.5 px-4 bg-slate-900 border-t border-slate-800 text-center text-xs text-slate-200 font-medium"></div>
     </div>
-  </div>
 
-  <!-- ══════════════════════════════════════════════════════════
+    <!-- ══════════════════════════════════════════════════════════
        LÓGICA JAVASCRIPT (VANILLA PURO)
   ══════════════════════════════════════════════════════════ -->
-  <script>
-    'use strict';
+    <script>
+      "use strict";
 
-    const TOTAL_SLIDES = 6;
-    let currentSlide = 1;
+      const TOTAL_SLIDES = 6;
+      let currentSlide = 1;
 
-    const slides = Array.from(document.querySelectorAll('.slide'));
-    const dotsContainer = document.getElementById('dots-container');
-    const counterBadge = document.getElementById('slide-counter-badge');
-    const progressLine = document.getElementById('progress-line');
-    const prevBtn = document.getElementById('nav-prev-btn');
-    const nextBtn = document.getElementById('nav-next-btn');
-    const modal = document.getElementById('modal');
-    const modalContent = document.getElementById('modal-content');
-    const modalCaption = document.getElementById('modal-caption');
+      const slides = Array.from(document.querySelectorAll(".slide"));
+      const dotsContainer = document.getElementById("dots-container");
+      const counterBadge = document.getElementById("slide-counter-badge");
+      const progressLine = document.getElementById("progress-line");
+      const prevBtn = document.getElementById("nav-prev-btn");
+      const nextBtn = document.getElementById("nav-next-btn");
+      const modal = document.getElementById("modal");
+      const modalContent = document.getElementById("modal-content");
+      const modalCaption = document.getElementById("modal-caption");
 
-    // Inicializar Dots
-    function initDots() {
-      dotsContainer.innerHTML = '';
-      for (let i = 1; i <= TOTAL_SLIDES; i++) {
-        const dot = document.createElement('button');
-        dot.className = `dot-btn ${i === currentSlide ? 'active' : ''}`;
-        dot.setAttribute('aria-label', `Ir a Diapositiva ${i}`);
-        dot.onclick = () => goToSlide(i);
-        dotsContainer.appendChild(dot);
-      }
-    }
-
-    function updatePresentationUI() {
-      // Slides
-      slides.forEach((slide, index) => {
-        if (index + 1 === currentSlide) {
-          slide.classList.add('active');
-        } else {
-          slide.classList.remove('active');
-          // Pausar cualquier video dentro de la diapositiva inactiva
-          slide.querySelectorAll('video').forEach(vid => {
-            vid.pause();
-          });
-        }
-      });
-
-      // Dots
-      const dots = Array.from(dotsContainer.querySelectorAll('.dot-btn'));
-      dots.forEach((dot, index) => {
-        if (index + 1 === currentSlide) {
-          dot.classList.add('active');
-        } else {
-          dot.classList.remove('active');
-        }
-      });
-
-      // Contador
-      if (counterBadge) {
-        counterBadge.textContent = `Slide ${currentSlide} de ${TOTAL_SLIDES}`;
-      }
-
-      // Barra de progreso
-      if (progressLine) {
-        progressLine.style.width = `${(currentSlide / TOTAL_SLIDES) * 100}%`;
-      }
-
-      // Botones Anterior / Siguiente
-      if (prevBtn) prevBtn.disabled = currentSlide === 1;
-      if (nextBtn) nextBtn.disabled = currentSlide === TOTAL_SLIDES;
-    }
-
-    function changeSlide(direction) {
-      goToSlide(currentSlide + direction);
-    }
-
-    function goToSlide(slideNumber) {
-      if (slideNumber >= 1 && slideNumber <= TOTAL_SLIDES) {
-        currentSlide = slideNumber;
-        updatePresentationUI();
-      }
-    }
-
-    // Modal
-    function openModal(type, src, captionText) {
-      modalContent.innerHTML = '';
-      modalCaption.textContent = captionText || '';
-
-      if (type === 'img') {
-        const img = document.createElement('img');
-        img.src = src;
-        img.alt = captionText || 'Vista ampliada';
-        img.className = 'max-h-[80vh] max-w-full object-contain rounded';
-        modalContent.appendChild(img);
-      } else if (type === 'video') {
-        const vid = document.createElement('video');
-        vid.controls = true;
-        vid.autoplay = true;
-        vid.className = 'max-h-[80vh] max-w-full rounded bg-black';
-        const source = document.createElement('source');
-        source.src = src;
-        source.type = 'video/mp4';
-        vid.appendChild(source);
-        modalContent.appendChild(vid);
-      }
-
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-    }
-
-    function closeModal() {
-      // Pausar video en reproducción antes de cerrar
-      const video = modalContent.querySelector('video');
-      if (video) {
-        video.pause();
-      }
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-      modalContent.innerHTML = '';
-      modalCaption.textContent = '';
-    }
-
-    function handleModalBackdropClick(event) {
-      if (event.target === modal) {
-        closeModal();
-      }
-    }
-
-    // Pantalla Completa
-    function toggleFullscreen() {
-      if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen().catch(() => {});
-      } else {
-        if (document.exitFullscreen) {
-          document.exitFullscreen().catch(() => {});
+      // Inicializar Dots
+      function initDots() {
+        dotsContainer.innerHTML = "";
+        for (let i = 1; i <= TOTAL_SLIDES; i++) {
+          const dot = document.createElement("button");
+          dot.className = `dot-btn ${i === currentSlide ? "active" : ""}`;
+          dot.setAttribute("aria-label", `Ir a Diapositiva ${i}`);
+          dot.onclick = () => goToSlide(i);
+          dotsContainer.appendChild(dot);
         }
       }
-    }
 
-    // Eventos de Teclado
-    document.addEventListener('keydown', (e) => {
-      // Si el modal está abierto
-      if (!modal.classList.contains('hidden')) {
-        if (e.key === 'Escape') {
+      function updatePresentationUI() {
+        // Slides
+        slides.forEach((slide, index) => {
+          if (index + 1 === currentSlide) {
+            slide.classList.add("active");
+          } else {
+            slide.classList.remove("active");
+            // Pausar cualquier video dentro de la diapositiva inactiva
+            slide.querySelectorAll("video").forEach((vid) => {
+              vid.pause();
+            });
+          }
+        });
+
+        // Dots
+        const dots = Array.from(dotsContainer.querySelectorAll(".dot-btn"));
+        dots.forEach((dot, index) => {
+          if (index + 1 === currentSlide) {
+            dot.classList.add("active");
+          } else {
+            dot.classList.remove("active");
+          }
+        });
+
+        // Contador
+        if (counterBadge) {
+          counterBadge.textContent = `Slide ${currentSlide} de ${TOTAL_SLIDES}`;
+        }
+
+        // Barra de progreso
+        if (progressLine) {
+          progressLine.style.width = `${(currentSlide / TOTAL_SLIDES) * 100}%`;
+        }
+
+        // Botones Anterior / Siguiente
+        if (prevBtn) prevBtn.disabled = currentSlide === 1;
+        if (nextBtn) nextBtn.disabled = currentSlide === TOTAL_SLIDES;
+      }
+
+      function changeSlide(direction) {
+        goToSlide(currentSlide + direction);
+      }
+
+      function goToSlide(slideNumber) {
+        if (slideNumber >= 1 && slideNumber <= TOTAL_SLIDES) {
+          currentSlide = slideNumber;
+          updatePresentationUI();
+        }
+      }
+
+      // Modal
+      function openModal(type, src, captionText) {
+        modalContent.innerHTML = "";
+        modalCaption.textContent = captionText || "";
+
+        if (type === "img") {
+          const img = document.createElement("img");
+          img.src = src;
+          img.alt = captionText || "Vista ampliada";
+          img.className = "max-h-[80vh] max-w-full object-contain rounded";
+          modalContent.appendChild(img);
+        } else if (type === "video") {
+          const vid = document.createElement("video");
+          vid.controls = true;
+          vid.autoplay = true;
+          vid.className = "max-h-[80vh] max-w-full rounded bg-black";
+          const source = document.createElement("source");
+          source.src = src;
+          source.type = "video/mp4";
+          vid.appendChild(source);
+          modalContent.appendChild(vid);
+        }
+
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+      }
+
+      function closeModal() {
+        // Pausar video en reproducción antes de cerrar
+        const video = modalContent.querySelector("video");
+        if (video) {
+          video.pause();
+        }
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+        modalContent.innerHTML = "";
+        modalCaption.textContent = "";
+      }
+
+      function handleModalBackdropClick(event) {
+        if (event.target === modal) {
           closeModal();
         }
-        return;
       }
 
-      // Navegación de Diapositivas
-      if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
-        changeSlide(1);
-      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-        changeSlide(-1);
-      } else if (e.key === 'f' || e.key === 'F') {
-        toggleFullscreen();
+      // Pantalla Completa
+      function toggleFullscreen() {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(() => {});
+        } else {
+          if (document.exitFullscreen) {
+            document.exitFullscreen().catch(() => {});
+          }
+        }
       }
-    });
 
-    // Inicialización al cargar el DOM
-    document.addEventListener('DOMContentLoaded', () => {
-      initDots();
-      updatePresentationUI();
-    });
-  </script>
-</body>
+      // Eventos de Teclado
+      document.addEventListener("keydown", (e) => {
+        // Si el modal está abierto
+        if (!modal.classList.contains("hidden")) {
+          if (e.key === "Escape") {
+            closeModal();
+          }
+          return;
+        }
+
+        // Navegación de Diapositivas
+        if (e.key === "ArrowRight" || e.key === "ArrowDown" || e.key === " ") {
+          changeSlide(1);
+        } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+          changeSlide(-1);
+        } else if (e.key === "f" || e.key === "F") {
+          toggleFullscreen();
+        }
+      });
+
+      // Inicialización al cargar el DOM
+      document.addEventListener("DOMContentLoaded", () => {
+        initDots();
+        updatePresentationUI();
+      });
+    </script>
+  </body>
 </html>
